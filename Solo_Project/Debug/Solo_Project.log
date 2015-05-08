@@ -1,0 +1,33 @@
+﻿Build started 5/6/2015 12:02:10 PM.
+     1>Project "C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\Solo_Project\Solo_Project.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\/SFML-2.1/include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt sceneGame.cpp
+         sceneGame.cpp
+     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(165): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
+                 c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
+     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\scenegame.cpp(239): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\scenegame.cpp(241): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\scenegame.cpp(329): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\Debug\Solo_Project.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\/SFML-2.1/lib" "sfml-main-d.lib" "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" "sfml-audio-d.lib" "sfml-network-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\Debug\Solo_Project.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\Debug\Solo_Project.lib" /MACHINE:X86 Debug\bullet.obj
+         Debug\collisionGrid.obj
+         Debug\enemy.obj
+         Debug\entity.obj
+         Debug\explosion.obj
+         Debug\game.obj
+         Debug\input.obj
+         Debug\main.obj
+         Debug\movement.obj
+         Debug\pickup.obj
+         Debug\player.obj
+         Debug\scene.obj
+         Debug\sceneGame.obj
+         Debug\spawner.obj
+         Debug\textureManager.obj
+         Debug\weapon.obj
+         Solo_Project.vcxproj -> C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\Debug\Solo_Project.exe
+     1>Done Building Project "C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\Solo_Project\Solo_Project.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.82
