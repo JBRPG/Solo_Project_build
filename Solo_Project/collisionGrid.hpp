@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SFML\Graphics.hpp>
+
 #include "entity.hpp"
 
 /*
@@ -24,13 +26,18 @@ The cycle repeats.
 */
 
 class collisionGrid{
+private:
+	int top;
+	int left;
+	int width;
+	int height;
 
 
 public:
 	collisionGrid();
 
-	static const int slicesX = 5;
-	static const int slicesY = 5;
+	static const int slicesX = 6;
+	static const int slicesY = 6;
 	static const int maxEntities = 100;
 
 	struct Cell{
@@ -42,6 +49,15 @@ public:
 
 	void append(int, int, Entity*);
 	void reset();
+
+	void setOrigin(int, int);
+	sf::Vector2i getOrigin();
+
+	void setSize(int, int);
+	sf::Vector2i getSize();
+
+
+	sf::IntRect getCollisionRect();
 
 
 };

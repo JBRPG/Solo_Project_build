@@ -53,7 +53,7 @@ private:
 
 	std::vector<bool> movement_select_list;
 	
-	int spawn_time = 120; // For now we have it affecting all spawners
+	int spawn_time = 180; // For now we have it affecting all spawners
 
 	int scene_ticks;
 

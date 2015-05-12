@@ -95,13 +95,13 @@ public:
 	// For movements without waypoints
 
 	Movement(std::string name, sf::Vector2f vertex, std::vector<float>args) :
-		name(name), vertex{vertex}, args(args)
+		name(name), vertex(vertex), args(args)
 	{};
 
 	// For movements with waypoints
 
 	Movement(sf::Vector2f vertex, std::vector<sf::Vector2f> _waypoints):
-		vertex{ vertex }
+		vertex(vertex)
 	{
 		/*
 		  We shall initalize the waypoints based on offset from the vertex
@@ -138,7 +138,7 @@ public:
 
 	void setName(std::string name) { this->name = name; };
 
-	void setEntityVertex(sf::Vector2f vertex) { vertex = vertex; };
+	void setEntityVertex(sf::Vector2f vertex) { this->vertex = vertex; };
 	
 	void setFloatArgs(std::vector<float> args) { this->args = args; };
 

@@ -10,6 +10,7 @@ Movement::Movement(const Movement& source){
 	name = source.name;
 	waypoints = source.waypoints;
 	args = source.args;
+	vertex = source.vertex;
 
 	waypoint_idx = source.waypoint_idx;
 
@@ -34,6 +35,7 @@ Movement& Movement::operator=(const Movement& source){
 	name = source.name;
 	waypoints = source.waypoints;
 	args = source.args;
+	vertex = source.vertex;
 
 	waypoint_idx = source.waypoint_idx;
 
@@ -148,14 +150,16 @@ void Movement::circle(Entity& entity, sf::Vector2f vertex, std::vector<float> pa
 	float pi = 3.14;
 	float deg_to_rad = pi / 180;
 
+	float radius = params[0];
 
 	entity.setPosition(
-		- params[0] * cos(entity.getTicks() * deg_to_rad) + vertex.x,
-		- params[0] * sin((entity.getTicks() + 90) * deg_to_rad) + vertex.y);
+		radius * cos((entity.getTicks()) * deg_to_rad) + vertex.x,
+		radius * sin((entity.getTicks()) * deg_to_rad) + vertex.y);
+
+	// check with breakpoint
 
 
 }
-
 void Movement::straight(Entity& entity, sf::Vector2f vertex, std::vector<float> params){
 	if (params.size() != 1){
 		std::cerr << "Need only one float value for stright: angle" << std::endl;
@@ -187,10 +191,13 @@ void Movement::sinusodial(Entity& entity, sf::Vector2f vertex, std::vector<float
 	   and use sine movement on y
 	*/
 
-	entity.setPosition(
+	float amplitude = params[0];
+	float period = params[1];
+	entity.setPosition( // check with breakpoint
+
 
 
 		entity.getPosition().x - entity.getSpeed(),
-		params[0] * sin( (pi / 2) * params[1] * entity.getTicks()) + vertex.y);
+		amplitude * sin( (2 * pi) * period * entity.getTicks()) + vertex.y);
 
-}
+} // check with breakpoint

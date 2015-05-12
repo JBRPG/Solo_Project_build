@@ -16,6 +16,16 @@ SceneGame::SceneGame(Game* game){
 
 	this->game = game; // need this to run the game.
 
+
+	// setup the collision box
+	// gridBox must be larger scale of the game window
+	gridBox.setSize(game->window.getSize().x * 1.5,
+		            game->window.getSize().y * 1.5);
+	// make sure game window is at center of collision box
+	
+	gridBox.setOrigin(-(int(game->window.getSize().x / 4)),
+		              -(int(game->window.getSize().y / 4)));
+
 	font.loadFromFile("media/arial.ttf");
 	fpsDisplay.setPosition(50, 0);
 
@@ -211,10 +221,9 @@ void SceneGame::populateGrid(){
 	// Default is at top left corner
 	sf::IntRect cellRect = sf::IntRect
 		(sf::Vector2i(0,0),sf::Vector2i(
-				game->window.getSize().x/gridBox.slicesX,
-				game->window.getSize().y/gridBox.slicesY));
-	sf::IntRect windowRect = sf::IntRect(0, 0,
-		game->window.getSize().x, game->window.getSize().y);
+				gridBox.getSize().x/gridBox.slicesX,
+				gridBox.getSize().y/gridBox.slicesY));
+
     // Now we check each entity if they are inside the grid
 
 	for (int i = 0; i < getEntitysize(); ++i){
@@ -235,12 +244,16 @@ void SceneGame::populateGrid(){
 				// Set up the 4 corners for the cell's area
 
 				// had to do float casting for more precise cells
-				cellRect.left = (game->window.getSize().x) *
-					            (float(x) / float(gridBox.slicesX));
-				cellRect.top = (game->window.getSize().y) *
-					            (float(y) / float(gridBox.slicesY));
-				cellRect.width = (game->window.getSize().x) / (gridBox.slicesX);
-				cellRect.height = (game->window.getSize().y) / (gridBox.slicesY);
+				// change into the gridBox's coordinates
+
+				cellRect.left = (gridBox.getSize().x) *
+					            (float(x) / float(gridBox.slicesX))
+								+ gridBox.getOrigin().x;
+				cellRect.top = (gridBox.getSize().y) *
+					            (float(y) / float(gridBox.slicesY))
+								+ gridBox.getOrigin().y;
+				cellRect.width = (gridBox.getSize().x) / (gridBox.slicesX);
+				cellRect.height = (gridBox.getSize().y) / (gridBox.slicesY);
 
 
 				// Add the entitiy to the cell if they touch
@@ -311,7 +324,10 @@ bool SceneGame::withinWindow(Entity& entity){
 		sf::Vector2i(entity.getTextureRect().width,
 		entity.getTextureRect().height));
 
-	sf::IntRect windowRect = sf::IntRect(0, 0, game->window.getSize().x, game->window.getSize().y);
+	// change this to the collision box so entities won't have to be deleted when outside window
+
+	sf::IntRect windowRect = sf::IntRect(gridBox.getOrigin().x, gridBox.getOrigin().y,
+		                                 gridBox.getSize().x, gridBox.getSize().y);
 
 	return entity_pixels.intersects(windowRect);
 
@@ -346,7 +362,7 @@ Spawner* SceneGame::makeSpawner(){
 
 	int randomWindowY = rand() % 200 + 200;
 
-	sf::Vector2i spawn_window_coords = sf::Vector2i(798, randomWindowY);
+	sf::Vector2i spawn_window_coords = sf::Vector2i(900, randomWindowY);
 
 	sf::Vector2f window_to_map_spawn = game->window.mapPixelToCoords(spawn_window_coords, gameView);
 
@@ -410,7 +426,7 @@ Movement* SceneGame::makeMovement(sf::Vector2f vertex){
 
 	switch (idx){
 	case (1) :
-		wordKey = "straight";
+		wordKey = "circle"; // "straight" replaced with "circle" for test purposes
 		break;
 	case (2) :
 		wordKey = "circle";
@@ -419,7 +435,7 @@ Movement* SceneGame::makeMovement(sf::Vector2f vertex){
 		wordKey = "sine";
 		break;
 	default:
-		wordKey = "waypoint";
+		wordKey = "sine"; // "waypoint" replaced with "sine" for test purposes
 		break;
 	}
 
@@ -457,7 +473,7 @@ Movement* SceneGame::makeMovement(sf::Vector2f vertex){
 		}
 		else if (wordKey == "sine"){
 			float amplitude = float(rand() % 50 + 1);
-			float period = float(rand() % 10 + 1) / 10;
+			float period = float(rand() % 10 + 1) / 300;
 			newMove = new Movement(wordKey, vertex, { amplitude, period });
 
 		}

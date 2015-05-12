@@ -6,6 +6,7 @@
 
 
 void Enemy::update(float dt){
+	ticks++;
 	updateWeapon(*myWeapon);
 
 	// The enemy remains stationary if no movement provided

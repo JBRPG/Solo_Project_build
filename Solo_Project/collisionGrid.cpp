@@ -27,3 +27,26 @@ void collisionGrid::reset(){
 		}
 	}
 }
+
+void collisionGrid::setOrigin(int _left, int _top){
+	left = _left;
+	top = _top;
+}
+
+sf::Vector2i collisionGrid::getOrigin(){
+	return sf::Vector2i(left, top);
+}
+
+void collisionGrid::setSize(int _width, int _height){
+	width = _width;
+	height = _height;
+}
+
+sf::Vector2i collisionGrid::getSize(){
+	return sf::Vector2i(width, height);
+}
+
+
+sf::IntRect collisionGrid::getCollisionRect(){
+	return sf::IntRect(sf::Vector2i(left, top), sf::Vector2i(width, height));
+}

@@ -61,7 +61,7 @@ void Spawner::spawn_enemy(){
 			enemyData->getSpeed(),
 			enemyData->getInvincible(),
 			enemyData->getSpawnPos(), new Weapon(*givenWeapon), new Movement(*givenMovement));
-		_enemy->getScene()->addEntity(_enemy);
+		_enemy->getScene()->addEntity(_enemy); // check with breakpoint
 		spawn_count();
 		spawnGapTime = spawnGapSet;
 	}
