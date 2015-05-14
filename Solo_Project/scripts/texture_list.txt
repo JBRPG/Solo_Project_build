@@ -6,3 +6,4 @@ bulletEnemy, media/images/enemyBullet.png
 enemySprite, media/images/enemy.png
 explodeTest, media/images/explosion_test.png
 pickup, media/images/pickup.png
+title, media/images/Randamius_title.png

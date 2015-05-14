@@ -31,6 +31,7 @@ void Game::gameLoop(){
 		this->window.clear(sf::Color::Black);
 		// draw the entities within the active scene
 		peekScene()->draw(dt);
+		peekScene()->handleInput();
 
 		this->window.display();
 

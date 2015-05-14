@@ -153,8 +153,8 @@ void Movement::circle(Entity& entity, sf::Vector2f vertex, std::vector<float> pa
 	float radius = params[0];
 
 	entity.setPosition(
-		radius * cos((entity.getTicks()) * deg_to_rad) + vertex.x,
-		radius * sin((entity.getTicks()) * deg_to_rad) + vertex.y);
+		radius * cos((entity.getTicks() * entity.getSpeed()) * deg_to_rad) + vertex.x,
+		radius * sin((entity.getTicks() * entity.getSpeed()) * deg_to_rad) + vertex.y);
 
 	// check with breakpoint
 

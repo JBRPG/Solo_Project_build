@@ -117,5 +117,8 @@ void Player::shootPlayer(float dt){
 }
 
 void Player::checkHealthPlayer(){
-	if (this->health <= 0) myScene->storeRemovedEntity(this);
+	if (this->health <= 0){
+		myScene->playerKilled();
+		myScene->storeRemovedEntity(this);
+	}
 }

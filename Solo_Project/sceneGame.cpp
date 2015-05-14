@@ -72,7 +72,7 @@ SceneGame::SceneGame(Game* game){
 	// Player will always be initalized at the start of the game
 
 	player = new Player(TextureManager::instance()->getRef("playerSprite"),
-		1, 5, false, 3);
+		1, 8, false, 3);
 	player->setPosition(sf::Vector2f(100, 200));
 	player->setWeapon(new Weapon());
 
@@ -191,8 +191,41 @@ void SceneGame::update(float dt){
 
 	gameView.move(scrollSpeed);
 
+	// add in scrolling stars later
+
+	gameOver();
+
 
 }
+
+void SceneGame::handleInput(){
+	sf::Event event;
+
+	while (this->game->window.pollEvent(event)){
+		switch (event.type){
+		  case sf::Event::Closed:
+		  {
+			  this->game->window.close();
+			  break;
+		  }
+
+		  case sf::Event::KeyPressed:
+		  {
+			  if (event.key.code == sf::Keyboard::Escape){
+				  this->game->window.close();
+			  }
+			  break;
+		  }
+
+		  default:
+		  {
+			  break;
+		  }
+
+		}
+	}
+}
+
 
 /*
   These collision-based functions are responsible
@@ -362,7 +395,7 @@ Spawner* SceneGame::makeSpawner(){
 
 	int randomWindowY = rand() % 200 + 200;
 
-	sf::Vector2i spawn_window_coords = sf::Vector2i(900, randomWindowY);
+	sf::Vector2i spawn_window_coords = sf::Vector2i(850, randomWindowY);
 
 	sf::Vector2f window_to_map_spawn = game->window.mapPixelToCoords(spawn_window_coords, gameView);
 
@@ -373,7 +406,7 @@ Spawner* SceneGame::makeSpawner(){
 	newSpawn = new Spawner(
 		new Weapon(enemy_weapon, "sequence_enemy", 36, { 8 }),
 		new Movement(*enemy_movement),
-		new EnemyTemplate(this, "enemySprite", 1, 2, false,
+		new EnemyTemplate(this, "enemySprite", 1, 4, false,
 		enemy_movement->getVertex()), {30, 3}, spawn_window_coords);
 
 
@@ -426,7 +459,7 @@ Movement* SceneGame::makeMovement(sf::Vector2f vertex){
 
 	switch (idx){
 	case (1) :
-		wordKey = "circle"; // "straight" replaced with "circle" for test purposes
+		wordKey = "straight"; // "straight" replaced with "circle" for test purposes
 		break;
 	case (2) :
 		wordKey = "circle";
@@ -435,7 +468,7 @@ Movement* SceneGame::makeMovement(sf::Vector2f vertex){
 		wordKey = "sine";
 		break;
 	default:
-		wordKey = "sine"; // "waypoint" replaced with "sine" for test purposes
+		wordKey = "waypoint"; // "waypoint" replaced with "sine" for test purposes
 		break;
 	}
 
@@ -448,9 +481,9 @@ Movement* SceneGame::makeMovement(sf::Vector2f vertex){
 		// Will explore more options for creating unique waypoint patterns later.
 
 		std::vector<sf::Vector2f> waypoints = {
-			sf::Vector2f(-100, 0),
-			sf::Vector2f(-100, -100),
-			sf::Vector2f(0, -100),
+			sf::Vector2f(-200, 0),
+			sf::Vector2f(-200, -200),
+			sf::Vector2f(0, -200),
 		};
 
 		newMove = new Movement(vertex, waypoints);
@@ -461,7 +494,7 @@ Movement* SceneGame::makeMovement(sf::Vector2f vertex){
 		// but I am using them for test purposes
 
 		if (wordKey == "straight"){
-			float angle = float(rand() % 90 + 90);
+			float angle = float(rand() % 30 + 120);
 			newMove = new Movement(wordKey, vertex, { angle });
 
 		}
@@ -482,4 +515,27 @@ Movement* SceneGame::makeMovement(sf::Vector2f vertex){
 	}
 
 	return newMove;
+}
+
+// destroy all the enemies and spawners
+// then remove this scene to go back to title screen
+
+void SceneGame::gameOver(){
+	if (!player_dead) return;
+
+	for (auto entity_obj : EntityList){
+		delete entity_obj;
+	}
+	EntityList.clear();
+
+	for (auto spawner_obj : spawner_list){
+		delete spawner_obj;
+	}
+	spawner_list.clear();
+
+	this->game->popScene();
+}
+
+void SceneGame::playerKilled(){
+	player_dead = true;
 }

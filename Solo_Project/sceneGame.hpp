@@ -33,6 +33,7 @@ private:
 
 	sf::Sprite background;
 	Player* player;
+	bool player_dead = false;
 	
 	std::vector<Enemy*> enemies; // temporary variable
 	std::vector <std::vector < BulletTemplate* > > bullet_Patterns;
@@ -57,8 +58,12 @@ private:
 
 	int scene_ticks;
 
-	// Tried doing the scrolling with the current view all objects are affected by view
 	sf::Vector2f scrollSpeed = sf::Vector2f(1.0f, 0);
+
+
+	// functions
+
+	void gameOver(); // if player dies, go back to start screen;
 
 	bool withinWindow(Entity&);
 
@@ -82,6 +87,7 @@ public:
 	// Scene functions
 	virtual void draw(float dt);
 	virtual void update(float dt);
+	virtual void handleInput();
 
 	void populateGrid();
 	void checkCollisions();
@@ -101,5 +107,7 @@ public:
 
 	int getSpawnTime(){ return spawn_time; };
 	void setSpawnTime(int time){ spawn_time = time; };
+
+	void playerKilled();
 
 };

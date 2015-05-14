@@ -6,6 +6,7 @@
 
 #include "game.hpp"
 #include "sceneGame.hpp"
+#include "sceneTitle.hpp"
 
 using namespace std;
 
@@ -15,7 +16,7 @@ int main(){
 
 	srand(time(NULL));
 	Game game;
-	game.pushScene(new SceneGame(&game));
+	game.pushScene(new SceneTitle(&game));
 	game.gameLoop();
 
 	return 0;
