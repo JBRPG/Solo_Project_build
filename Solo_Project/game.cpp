@@ -1,11 +1,14 @@
 #include "game.hpp"
 #include "scene.hpp"
 
+#include "soundPlayer.hpp"
 
-
-Game::Game(){
+Game::Game():
+multiplier(1)
+{
 
 	this->loadTextures();
+	this->loadSounds();
 
 	this->window.create(sf::VideoMode (800,600), "Solo Project Ver 0.0");
 	this->window.setFramerateLimit(60);
@@ -88,6 +91,32 @@ void Game::loadTextures(){
 	}
 }
 
+void Game::loadSounds(){
+
+	std::string current_line;
+
+	std::ifstream target_file("scripts/sound_list.txt");
+
+	/*
+	texture_list will have two tokens per line,
+	string name (0), and filename (1), seprated by ", "
+	*/
+
+	if (target_file.is_open()){
+
+		while (std::getline(target_file, current_line)){
+			std::vector<std::string> elems = Game::split(current_line, ", ");
+			SoundPlayer::instance()->loadSound(elems.at(0), elems.at(1));
+		}
+		target_file.close();
+	}
+
+	else{
+		std::cout << "Cannot open file. Close program";
+		this->window.close();
+	}
+}
+
 
 std::vector<std::string> Game::split(const std::string &line, std::string delim,
 	std::vector<std::string> &elems){
@@ -110,3 +139,36 @@ std::vector<std::string> Game::split(const std::string &line, std::string delim)
 	Game::split(line, delim, elems);
 	return elems;
 }
+
+int Game::getScore(){
+	return score;
+}
+
+void Game::setScore(int _score){
+	score = _score;
+}
+
+int Game::getHiScore(){
+	return highscore;
+}
+
+void Game::setHiScore(){
+	highscore = highscore < score ? score : highscore;
+}
+
+void Game::increaseScore(int bonus){
+	score += bonus * multiplier;
+}
+
+int Game::getMultiplier(){
+	return multiplier;
+}
+
+void Game::setMultiplier(int _mult){
+	multiplier = _mult;
+}
+
+void Game::increaseMultiplier(){
+	++multiplier;
+}
+

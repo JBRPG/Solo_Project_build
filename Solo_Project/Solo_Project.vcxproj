@@ -25,6 +25,7 @@
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="sceneGame.cpp" />
     <ClCompile Include="sceneTitle.cpp" />
+    <ClCompile Include="soundPlayer.cpp" />
     <ClCompile Include="spawner.cpp" />
     <ClCompile Include="textureManager.cpp" />
     <ClCompile Include="weapon.cpp" />
@@ -43,6 +44,7 @@
     <ClInclude Include="scene.hpp" />
     <ClInclude Include="sceneGame.hpp" />
     <ClInclude Include="sceneTitle.hpp" />
+    <ClInclude Include="soundPlayer.hpp" />
     <ClInclude Include="spawner.hpp" />
     <ClInclude Include="terrain.hpp" />
     <ClInclude Include="textureManager.hpp" />

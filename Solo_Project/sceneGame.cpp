@@ -6,6 +6,7 @@
 #include <cstdlib>
 
 #include "input.hpp"
+#include "soundPlayer.hpp"
 
 #include "spawner.hpp"
 
@@ -28,6 +29,7 @@ SceneGame::SceneGame(Game* game){
 
 	font.loadFromFile("media/arial.ttf");
 	fpsDisplay.setPosition(50, 0);
+	score.setPosition(500, 0);
 
 	// Set up the view layers
 
@@ -47,6 +49,9 @@ SceneGame::SceneGame(Game* game){
 	// Initialize the background
 
 	background = sf::Sprite(TextureManager::instance()->getRef("background"));
+
+	// setup the stars
+	setupStars();
 
 	// setup the bullet patterns
 
@@ -87,14 +92,17 @@ SceneGame::SceneGame(Game* game){
 
 void SceneGame::draw(float dt){
 
-	// draw the background
 	this->game->window.setView(background1View);
 	this->game->window.draw(background);
 	this->game->window.draw(fpsDisplay);
-
-	// draw the entities
+	this->game->window.draw(score);
+	
 
 	this->game->window.setView(gameView);
+
+	for (auto star : stars){
+		this->game->window.draw(*star);
+	}
 
 	for (int i = 0; i < getEntitysize(); ++i){
 		sf::Sprite* idxSprite = getEntity(i);
@@ -108,10 +116,16 @@ void SceneGame::update(float dt){
 	///*
 	std::stringstream strDisplay;
 	strDisplay << "FPS: " << int(1 / dt);
-
 	framerate = strDisplay.str();
-
 	fpsDisplay.setString(framerate);
+
+	std::stringstream scoreDisplay;
+	scoreDisplay << "Score: " << game->getScore();
+	curr_score = scoreDisplay.str();
+	score.setString(curr_score);
+
+
+	checkStars();
 
 	spawnTimer(); 
 
@@ -188,6 +202,7 @@ void SceneGame::update(float dt){
 	addList.clear();
 	removeList.clear();
 
+	checkSounds();
 
 	gameView.move(scrollSpeed);
 
@@ -517,6 +532,44 @@ Movement* SceneGame::makeMovement(sf::Vector2f vertex){
 	return newMove;
 }
 
+void SceneGame::setupStars(){
+	
+	// lets create a fixed number of stars
+	int star_count = 50;
+
+	for (int i = 0; i < star_count; ++i){
+		stars.push_back(new sf::Sprite(TextureManager::instance()->getRef("star")));
+	}
+
+	for (int i = 0; i < stars.size(); ++i){
+		sf::Sprite* star = stars[i];
+		int pix_x = rand() % game->window.getSize().x + 1;
+		int pix_y = rand() % game->window.getSize().y + 1;
+		sf::Vector2i star_window = sf::Vector2i(pix_x, pix_y);
+		sf::Vector2f star_bgview = game->window.mapPixelToCoords(star_window, gameView);
+		star->setPosition(star_bgview);
+
+	}
+}
+
+void SceneGame::checkStars(){
+	for (auto star : stars){
+		sf::Vector2i star_window = game->window.mapCoordsToPixel(star->getPosition());
+		sf::Vector2f star_warp_coord = game->window.mapPixelToCoords(
+			sf::Vector2i(game->window.getSize().x, 0)) +
+			sf::Vector2f(star->getLocalBounds().width, star->getPosition().y);
+
+
+		if (star_window.x < - star->getLocalBounds().width){
+			star->setPosition(star_warp_coord);
+		}
+		else {
+			star->move(sf::Vector2f(0, 0) - scrollSpeed);
+		}
+	}
+
+}
+
 // destroy all the enemies and spawners
 // then remove this scene to go back to title screen
 
@@ -533,9 +586,36 @@ void SceneGame::gameOver(){
 	}
 	spawner_list.clear();
 
+	for (auto sound_obj : sound_list){
+		delete sound_obj;
+	}
+	sound_list.clear();
+
+	game->setScore(0);
+	game->setMultiplier(1);
+	game->setHiScore();
+
 	this->game->popScene();
 }
 
 void SceneGame::playerKilled(){
 	player_dead = true;
+}
+
+
+void SceneGame::playSound(std::string sound_buff){
+	sf::Sound* newSound = new sf::Sound(
+		SoundPlayer::instance()->getRef(sound_buff));
+	newSound->play();
+	sound_list.push_back(newSound);
+}
+
+void SceneGame::checkSounds(){
+	for (int i = sound_list.size() - 1; i >= 0; --i){
+		if (sound_list[i]->getStatus() != sf::Sound::Status::Playing){
+			delete sound_list[i];
+			sound_list[i] = nullptr;
+			sound_list.erase(sound_list.begin() + i);
+		}
+	}
 }

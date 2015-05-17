@@ -1,0 +1,5 @@
+player_shot, media/sounds/player_shot.ogg
+player_destroyed, media/sounds/player_destroyed.ogg
+enemy_hit, media/sounds/enemy_hit.ogg
+enemy_destroyed, media/sounds/enemy_destroyed.ogg
+weapon_get, media/sounds/weapon_get.ogg

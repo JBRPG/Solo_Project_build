@@ -38,17 +38,18 @@ void Enemy::collideWith(Entity &other){
 
 		if (health <= 0){
 			destroyEnemy();
-
-
+		}
+		else {
+			myScene->playSound("enemy_hit");
 		}
 	}
 }
 
 void Enemy::destroyEnemy(){
 	myScene->storeRemovedEntity(this);
-
+	myScene->playSound("enemy_destroyed");
 	Explosion* explode = new Explosion
-		(TextureManager::instance()->getRef("explodeTest"), 0);
+		(TextureManager::instance()->getRef("explodeAnimate"), sf::IntRect(0,0,80,80), 3);
     explode->setSpawnTime(1.0f);
 	explode->setPosition(this->getPosition().x - this->getGlobalBounds().width / 2,
 		this->getPosition().y);

@@ -13,6 +13,10 @@ class Scene; // forward declare
 class Game{
 
 private:
+
+	int multiplier;
+	int score;
+	int highscore;
 	
 public:
 
@@ -28,11 +32,23 @@ public:
 	void gameLoop();
 
 	void loadTextures();
+	void loadSounds();
 
 	std::vector<std::string> split(const std::string &line, std::string delim,
 		std::vector<std::string> &elems);
 
 	std::vector<std::string> split(const std::string &line, std::string delim);
+
+	void increaseMultiplier();
+	void setMultiplier(int);
+	int getMultiplier();
+
+	void increaseScore(int);
+	void setScore(int);
+	int getScore();
+
+	void setHiScore();
+	int getHiScore();
 
 	Game();
 	~Game();

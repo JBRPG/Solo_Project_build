@@ -1,5 +1,6 @@
 #include "sceneTitle.hpp"
 
+#include <sstream>
 
 #include "game.hpp"
 #include "sceneGame.hpp"
@@ -10,26 +11,36 @@ SceneTitle::SceneTitle(Game* game){
 
 	this->game = game;
 
+	sf::Vector2f pos = sf::Vector2f(this->game->window.getSize());
+	titleView.setSize(pos);
+	pos *= 0.5f;
+	titleView.setCenter(pos);
 
 	font.loadFromFile("media/arial.ttf");
-	controls = sf::Text("Controls:\n Arrows - Move   Space - Shoot\n\n\nPress Space to begin game.", font, 30);
+	controls = sf::Text("Controls:\n Arrows - Move   Space - Shoot\n\n\nPress Enter to begin game.", font, 30);
 	controls.setPosition(200, 400);
+	hiscore = sf::Text("Hi Score: " + game->getHiScore(), font, 30);
+	hiscore.setPosition(500, 0);
 
 	title = sf::Sprite(TextureManager::instance()->getRef("title"));
 	title.setPosition(200, 100);
-
-	// set up the images for the title screen
 }
 
 void SceneTitle::draw(const float dt){
 	game->window.setView(titleView);
 	game->window.draw(title);
 	game->window.draw(controls);
+	game->window.draw(hiscore);
 
 }
 
 
 void SceneTitle::update(const float dt){
+	std::stringstream hiscoreDisplay;
+	hiscoreDisplay << " Hi Score: " << game->getHiScore();
+	std::string hiscoreStr = hiscoreDisplay.str();
+	hiscore.setString(hiscoreStr);
+
 
 }
 
@@ -51,8 +62,8 @@ void SceneTitle::handleInput(){
 				this->game->window.close();
 			}
 
-			// press fire key (space) to start game
-			else if (event.key.code == sf::Keyboard::Space){
+			// press Enter to start game
+			else if (event.key.code == sf::Keyboard::Return){
 				this->game->pushScene(new SceneGame(game));
 			}
 			break;

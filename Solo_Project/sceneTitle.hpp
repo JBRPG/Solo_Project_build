@@ -13,6 +13,7 @@ private:
 
 	sf::Font font  = sf::Font();
 	sf::Text controls;
+	sf::Text hiscore;
 
 	sf::Sprite title;
 

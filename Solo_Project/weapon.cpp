@@ -210,6 +210,7 @@ void Weapon::singleShot(Entity& shooter){
 		if (Input::instance()->pressKeybutton(sf::Keyboard::Space)){
 
 			if (shootCooldownTime == 0){
+				shooter.getScene()->playSound("player_shot");
 				shootBullets(shooter);
 				shootCooldownTime = shootCooldownSet;
 			}

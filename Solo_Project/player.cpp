@@ -1,7 +1,7 @@
 #include "player.hpp"
 
 #include "pickup.hpp"
-
+#include "soundPlayer.hpp"
 
 
 void Player::update(float dt){
@@ -38,7 +38,9 @@ void Player::collideWith(Entity& other){
 		--this->health;
 	}
 	else if (Pickup* pickup = dynamic_cast<Pickup*> (&other)){
+		myScene->playSound("weapon_get");
 		this->setWeapon(pickup->giveWeapon());
+		this->myScene->game->increaseScore(1);
 	}
 }
 
@@ -112,6 +114,12 @@ void Player::movePlayer(){
 
 void Player::shootPlayer(float dt){
 
+	// looks like playing the sound from the instance class alone may not produce sound.
+	// may end up having to implement sound objects in derived entity objects
+	// so the sounds can be played
+
+
+	
 	myWeapon->update(*this);
 
 }

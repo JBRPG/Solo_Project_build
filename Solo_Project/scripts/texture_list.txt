@@ -5,5 +5,7 @@ bulletPlayer, media/images/playerBullet.png
 bulletEnemy, media/images/enemyBullet.png
 enemySprite, media/images/enemy.png
 explodeTest, media/images/explosion_test.png
+explodeAnimate, media/images/explosion_animation.png
 pickup, media/images/pickup.png
 title, media/images/Randamius_title.png
+star, media/images/star.png

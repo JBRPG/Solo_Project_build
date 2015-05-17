@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
+#include <SFML\Audio.hpp>
 
 #include "scene.hpp"
 #include "game.hpp"
@@ -32,6 +33,11 @@ private:
 
 
 	sf::Sprite background;
+
+	std::vector <sf::Sprite*> stars;
+
+	std::vector<sf::Sound*> sound_list;
+
 	Player* player;
 	bool player_dead = false;
 	
@@ -45,6 +51,8 @@ private:
 	sf::Font font = sf::Font();
 	sf::Text fpsDisplay = sf::Text("FPS:", font, 30);
 	std::string framerate;
+	sf::Text score = sf::Text("Score: ", font, 30);
+	std::string curr_score;
 
 	collisionGrid gridBox;
 	std::vector<Entity*> addList; // We simply add the created entities to EntityList
@@ -64,6 +72,12 @@ private:
 	// functions
 
 	void gameOver(); // if player dies, go back to start screen;
+
+	void checkSounds();
+	void deleteSounds();
+
+	void setupStars();
+	void checkStars();
 
 	bool withinWindow(Entity&);
 
@@ -109,5 +123,7 @@ public:
 	void setSpawnTime(int time){ spawn_time = time; };
 
 	void playerKilled();
+
+	void playSound(std::string);
 
 };
