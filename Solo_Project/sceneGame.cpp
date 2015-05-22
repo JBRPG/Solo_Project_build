@@ -12,6 +12,11 @@
 
 #include "pickup.hpp"
 
+#include "player.hpp"
+#include "entity.hpp"
+#include "enemy.hpp"
+#include "terrain.hpp"
+
 
 SceneGame::SceneGame(Game* game){
 
@@ -60,9 +65,9 @@ SceneGame::SceneGame(Game* game){
 	std::vector<BulletTemplate*> player_weapon;
 
 	// Typical 3-way gun
-	player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, 0));
-	player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, -15));
-	player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, 15));
+	player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 20, false, 0));
+	player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 20, false, -15));
+	player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 20, false, 15));
 
 	// simple rapid fire
 
@@ -104,9 +109,17 @@ void SceneGame::draw(float dt){
 		this->game->window.draw(*star);
 	}
 
+	for (auto land : terrain_list){
+		game->window.draw(*land);
+	}
+
+	// Test: make sure enemies are not covered by terrain
 	for (int i = 0; i < getEntitysize(); ++i){
-		sf::Sprite* idxSprite = getEntity(i);
-		this->game->window.draw(*idxSprite);
+		auto idxSprite = getEntity(i);
+		Terrain* land = dynamic_cast<Terrain*> (idxSprite);
+		if (land == nullptr){
+			this->game->window.draw(*idxSprite);
+		}
 	}
 
 }
@@ -127,6 +140,7 @@ void SceneGame::update(float dt){
 
 	checkStars();
 
+	makeTerrain();
 	spawnTimer(); 
 
 	for (auto spawn : spawner_list){
@@ -174,6 +188,14 @@ void SceneGame::update(float dt){
 
 				if (p == q){
 					// remove entity from entityList
+
+					// check if the entity is terrain, remove it from terrain list if true
+					Terrain* land = dynamic_cast<Terrain*>(p);
+					if (p == land){
+						int pos = std::find(terrain_list.begin(), terrain_list.end(), land) - terrain_list.begin();
+						terrain_list.erase(terrain_list.begin() + pos);
+					}
+
 					delete p;
 					p = nullptr;
 					EntityList.erase(EntityList.begin() + k);
@@ -198,6 +220,7 @@ void SceneGame::update(float dt){
 
 		//*/
 	}
+
 	//empty the containers of added and removed entities 
 	addList.clear();
 	removeList.clear();
@@ -532,6 +555,32 @@ Movement* SceneGame::makeMovement(sf::Vector2f vertex){
 	return newMove;
 }
 
+void SceneGame::makeTerrain(){
+	// make terrain 1/3 of the time
+	if (scene_ticks % spawn_time == 0 &&
+		rand() % 2 == 0){
+
+		int pow_width = (rand() % 4) + 5;
+		int pow_height = (rand() % 4) + 5;
+		int terr_width = int(pow(2, pow_width));
+		int terr_height = int(pow(2, pow_height));
+		bool top_bot = rand() % 2 == 1 ? true : false;
+
+		Terrain* newBlock = new Terrain(TextureManager::instance()->getRef("metal wall"),
+			sf::IntRect(0,0,terr_width,terr_height), 100, 0, 1);
+		terrain_list.push_back(newBlock);
+		addEntity(newBlock);
+
+		sf::Vector2f window_size = game->window.mapPixelToCoords(
+			sf::Vector2i(game->window.getSize().x, game->window.getSize().y), gameView);
+
+		newBlock->setPosition(window_size.x + newBlock->getLocalBounds().width / 2,
+			(window_size.y * top_bot) - ((2 * (top_bot) - 1) * newBlock->getLocalBounds().height / 2));
+		
+
+	}
+}
+
 void SceneGame::setupStars(){
 	
 	// lets create a fixed number of stars
@@ -594,6 +643,7 @@ void SceneGame::gameOver(){
 	game->setScore(0);
 	game->setMultiplier(1);
 	game->setHiScore();
+	game->setGameOver(true);
 
 	this->game->popScene();
 }

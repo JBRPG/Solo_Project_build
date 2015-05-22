@@ -18,8 +18,14 @@ class Enemy : public Entity{
 
 private:
 
-	sf::Vector2f spawnVertex;
+	
 
+
+	
+
+protected:
+
+	sf::Vector2f spawnVertex;
 
 	// Group related variables
 	bool withGroup;
@@ -28,6 +34,7 @@ private:
 	// functions
 
 	void destroyEnemy(); // make the enemy explode and disappear
+
 
 public:
 

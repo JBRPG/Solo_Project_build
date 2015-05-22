@@ -1,6 +1,8 @@
 #include "movement.hpp"
 #include <cmath>
 
+#include "enemyTerrain.hpp"
+
 
 // constructors
 
@@ -88,7 +90,8 @@ void Movement::lookupMovement(Entity& entity, std::string name){
 	{
 		{"straight", &Movement::straight},
 		{"circle", &Movement::circle},
-		{"sine", &Movement::sinusodial}
+		{ "sine", &Movement::sinusodial },
+		{ "walk", &Movement::walk }
 	};
 
 	auto entry = table.find(name);
@@ -200,4 +203,14 @@ void Movement::sinusodial(Entity& entity, sf::Vector2f vertex, std::vector<float
 		entity.getPosition().x - entity.getSpeed(),
 		amplitude * sin( (2 * pi) * period * entity.getTicks()) + vertex.y);
 
-} // check with breakpoint
+} 
+
+
+// This behavior is exclusive for terrain enemy
+void Movement::walk(Entity& entity, sf::Vector2f vertex, std::vector<float> params){
+	if (EnemyTerrain* enemyLand = dynamic_cast<EnemyTerrain*> (&entity)){
+		// implement walking behavior
+
+
+	}
+}

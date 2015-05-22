@@ -50,6 +50,8 @@ private:
 	// Player only
 	int holdDurationTime; // player does not let go, shot enter cooldown
 	int holdDurationSet;  // otherwise, weapon ready to fire when pressed
+	int shot_limit = 4;
+	int shot_count;
 
 	int spawnTime;
 

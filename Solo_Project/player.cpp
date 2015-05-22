@@ -2,12 +2,14 @@
 
 #include "pickup.hpp"
 #include "soundPlayer.hpp"
+#include "terrain.hpp"
 
 
 void Player::update(float dt){
 	this->movePlayer();
 	this->shootPlayer(dt);
 	this->checkHealthPlayer();
+	Entity::update(dt);
 
 }
 
@@ -40,7 +42,12 @@ void Player::collideWith(Entity& other){
 	else if (Pickup* pickup = dynamic_cast<Pickup*> (&other)){
 		myScene->playSound("weapon_get");
 		this->setWeapon(pickup->giveWeapon());
-		this->myScene->game->increaseScore(1);
+		this->myScene->game->increaseMultiplier();
+	}
+
+
+	else if (Terrain* land = dynamic_cast<Terrain*> (&other)){
+		myScene->storeRemovedEntity(this);
 	}
 }
 

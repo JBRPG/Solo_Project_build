@@ -47,6 +47,7 @@ void Enemy::collideWith(Entity &other){
 
 void Enemy::destroyEnemy(){
 	myScene->storeRemovedEntity(this);
+	myScene->game->increaseScore(1);
 	myScene->playSound("enemy_destroyed");
 	Explosion* explode = new Explosion
 		(TextureManager::instance()->getRef("explodeAnimate"), sf::IntRect(0,0,80,80), 3);

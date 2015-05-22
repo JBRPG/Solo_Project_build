@@ -172,3 +172,19 @@ void Game::increaseMultiplier(){
 	++multiplier;
 }
 
+bool Game::getGameOver(){
+	return game_over;
+}
+
+void Game::setGameOver(bool _tf){
+	game_over = _tf;
+}
+
+bool Game::getAtStartScreen(){
+	return atStart;
+
+}
+
+void Game::setAtStartScreen(bool _tf){
+	atStart = _tf;
+}

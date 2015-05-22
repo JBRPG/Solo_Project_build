@@ -5,14 +5,20 @@
 
 #include "scene.hpp"
 #include "game.hpp"
-#include "entity.hpp"
 #include "movement.hpp"
 #include "weapon.hpp"
-#include "player.hpp"
 #include "collisionGrid.hpp"
 
 
 // forward declare
+
+class Player;
+
+class Entity;
+
+class Enemy;
+
+class Terrain;
 
 class BulletTemplate;
 
@@ -59,6 +65,7 @@ private:
 	std::vector<Entity*> removeList; // we match the stored entities for removal
 
 	std::vector <Spawner*> spawner_list;
+	std::vector<Terrain*> terrain_list;
 
 	std::vector<bool> movement_select_list;
 	
@@ -92,7 +99,11 @@ private:
 
 	// Procedural Content Generation-related functions
 
-	Movement* makeMovement(sf::Vector2f);
+	Movement* makeMovement(sf::Vector2f); // make movements
+	// make enemies
+	// make weapons
+	// make terrain
+	void makeTerrain();// make pickups
 
 
 public:

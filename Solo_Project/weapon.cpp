@@ -209,9 +209,10 @@ void Weapon::singleShot(Entity& shooter){
 	if (Player* player = dynamic_cast<Player*> (&shooter)){
 		if (Input::instance()->pressKeybutton(sf::Keyboard::Space)){
 
-			if (shootCooldownTime == 0){
+			if (shootCooldownTime == 0 && shot_count < shot_limit){
 				shooter.getScene()->playSound("player_shot");
 				shootBullets(shooter);
+				shot_count++;
 				shootCooldownTime = shootCooldownSet;
 			}
 
@@ -222,6 +223,11 @@ void Weapon::singleShot(Entity& shooter){
 		else {
 			shootCooldownTime = 0;
 		}
+
+		if (shooter.getTicks() % 30 == 0){
+			shot_count = shot_count > 0? shot_count - 1: 0;
+		}
+		
 	}
 
 	if (Enemy* enemy = dynamic_cast<Enemy*> (&shooter)){

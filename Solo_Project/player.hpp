@@ -7,7 +7,6 @@
 #include "entity.hpp"
 #include "bullet.hpp"
 #include "enemy.hpp"
-#include "terrain.hpp"
 
 #include "input.hpp"
 #include "sceneGame.hpp"

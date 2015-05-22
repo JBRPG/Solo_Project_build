@@ -17,6 +17,9 @@ private:
 	int multiplier;
 	int score;
 	int highscore;
+	bool game_over = true;
+	bool atStart = true;
+
 	
 public:
 
@@ -49,6 +52,12 @@ public:
 
 	void setHiScore();
 	int getHiScore();
+
+	bool getAtStartScreen();
+	void setAtStartScreen(bool);
+
+	bool getGameOver();
+	void setGameOver(bool);
 
 	Game();
 	~Game();

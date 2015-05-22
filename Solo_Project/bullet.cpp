@@ -1,5 +1,7 @@
 #include "bullet.hpp"
 
+#include "terrain.hpp"
+
 
 /*
 For all entity comparisons, we will use dynamic_cast
@@ -27,6 +29,11 @@ void Bullet::collideWith(Entity& other){
 		// destroy bullet
 		// enemy health reduction in its own code
 
+		myScene->storeRemovedEntity(this);
+	}
+
+
+	else if (Terrain* land = dynamic_cast<Terrain*> (&other)){
 		myScene->storeRemovedEntity(this);
 	}
 }

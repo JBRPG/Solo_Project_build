@@ -3,44 +3,27 @@
 #include <SFML\Graphics.hpp>
 
 #include "entity.hpp"
-//#include "player.hpp"
-//#include "bullet.hpp"
-//#include "enemy.hpp"
-
-// forward declare
-class Player;
-class Enemy;
-class Bullet;
-
 
 class Terrain : public Entity{
 
 private:
 
-	// From entity
-	int hp;
-	float speed;
-	bool invincibility;
-
 
 public:
 
-	Terrain(const sf::Texture& tex, int hp, float speed, bool invincible) :
-		hp{hp},
-		speed{speed},
-		invincibility{invincible},
-		Entity(tex, hp, speed, invincible){};
+	Terrain();
 
-	Terrain(const sf::Texture& tex, sf::IntRect& rect,
-		    int hp, float speed, bool invincible) :
-		hp{ hp },
-		speed{ speed },
-		invincibility{ invincible },
-		Entity(tex, rect, hp, speed, invincible){};
+	Terrain(const sf::Texture&, int, float, bool);
 
-	void collideWith(Player*);
-	void collideWith(Bullet*);
-	void collideWith(Enemy*);
+	Terrain(const sf::Texture&, sf::IntRect&,
+		    int, float, bool);
 
+
+	void collideWith(Entity&);
+	
+
+	// empty functions
+	void updateMovement(Movement&) {};
+	void updateWeapon(Weapon&) {};
 
 };

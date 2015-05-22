@@ -176,6 +176,7 @@ public:
 	void circle(Entity&, sf::Vector2f, std::vector<float>);
 	void straight(Entity&, sf::Vector2f, std::vector<float>);
 	void sinusodial(Entity&, sf::Vector2f, std::vector<float>);
+	void walk(Entity&, sf::Vector2f, std::vector<float>);
 
 
 

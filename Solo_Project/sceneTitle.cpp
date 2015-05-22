@@ -5,9 +5,13 @@
 #include "game.hpp"
 #include "sceneGame.hpp"
 #include "textureManager.hpp"
+#include "soundPlayer.hpp"
 
 
-SceneTitle::SceneTitle(Game* game){
+SceneTitle::SceneTitle(Game* game)
+{
+
+	player_destroyed = sf::Sound(SoundPlayer::instance()->getRef("player_destroyed"));
 
 	this->game = game;
 
@@ -40,6 +44,7 @@ void SceneTitle::update(const float dt){
 	hiscoreDisplay << " Hi Score: " << game->getHiScore();
 	std::string hiscoreStr = hiscoreDisplay.str();
 	hiscore.setString(hiscoreStr);
+	play_playerDefeat();
 
 
 }
@@ -64,6 +69,8 @@ void SceneTitle::handleInput(){
 
 			// press Enter to start game
 			else if (event.key.code == sf::Keyboard::Return){
+				game->setGameOver(false);
+				game->setAtStartScreen(false);
 				this->game->pushScene(new SceneGame(game));
 			}
 			break;
@@ -78,4 +85,12 @@ void SceneTitle::handleInput(){
 		}
 	}
 
+}
+
+void SceneTitle::play_playerDefeat(){
+	if (game->getAtStartScreen()) return;
+	if (game->getGameOver()){
+		player_destroyed.play();
+		game->setAtStartScreen(true);
+	}
 }
