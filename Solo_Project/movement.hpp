@@ -173,10 +173,15 @@ public:
 	   2 - sf::Vector2f: vertex will be used for some complex equations
 	   3 - float*: number of float values for equations
 	*/
+
+	// flying enemies only
 	void circle(Entity&, sf::Vector2f, std::vector<float>);
 	void straight(Entity&, sf::Vector2f, std::vector<float>);
 	void sinusodial(Entity&, sf::Vector2f, std::vector<float>);
+
+	// land enemies only
 	void walk(Entity&, sf::Vector2f, std::vector<float>);
+	void stay(Entity&, sf::Vector2f, std::vector<float>);
 
 
 

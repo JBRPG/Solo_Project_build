@@ -16,6 +16,7 @@
 #include "entity.hpp"
 #include "enemy.hpp"
 #include "terrain.hpp"
+#include "enemyTerrain.hpp"
 
 
 SceneGame::SceneGame(Game* game){
@@ -58,27 +59,6 @@ SceneGame::SceneGame(Game* game){
 	// setup the stars
 	setupStars();
 
-	// setup the bullet patterns
-
-	// Hardcoded for testing purposes
-
-	std::vector<BulletTemplate*> player_weapon;
-
-	// Typical 3-way gun
-	player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 20, false, 0));
-	player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 20, false, -15));
-	player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 20, false, 15));
-
-	// simple rapid fire
-
-	bullet_Patterns.push_back(player_weapon);
-
-	// Initialize the entities
-
-	// initalize the powerup for test purpose
-	powup = new Pickup(this,"pickup", sf::Vector2f(400,200) , new Weapon((bullet_Patterns[0]), "single", 60));
-	addEntity(powup);
-
 	// Player will always be initalized at the start of the game
 
 	player = new Player(TextureManager::instance()->getRef("playerSprite"),
@@ -99,8 +79,6 @@ void SceneGame::draw(float dt){
 
 	this->game->window.setView(background1View);
 	this->game->window.draw(background);
-	this->game->window.draw(fpsDisplay);
-	this->game->window.draw(score);
 	
 
 	this->game->window.setView(gameView);
@@ -122,6 +100,11 @@ void SceneGame::draw(float dt){
 		}
 	}
 
+	sf::Vector2f center = sf::Vector2f(game->window.getSize());
+	center *= 0.5f;
+	this->game->window.draw(fpsDisplay);
+	this->game->window.draw(score);
+
 }
 
 void SceneGame::update(float dt){
@@ -131,16 +114,19 @@ void SceneGame::update(float dt){
 	strDisplay << "FPS: " << int(1 / dt);
 	framerate = strDisplay.str();
 	fpsDisplay.setString(framerate);
+	fpsDisplay.move(scrollSpeed);
 
 	std::stringstream scoreDisplay;
 	scoreDisplay << "Score: " << game->getScore();
 	curr_score = scoreDisplay.str();
 	score.setString(curr_score);
+	score.move(scrollSpeed);
 
 
 	checkStars();
 
 	makeTerrain();
+	makePickup();
 	spawnTimer(); 
 
 	for (auto spawn : spawner_list){
@@ -417,6 +403,14 @@ sf::IntRect SceneGame::getWindowBounds(Entity& entity){
 
 }
 
+int SceneGame::getDifficulty(){
+	return difficulty;
+}
+
+void SceneGame::setDifficullty(int diff){
+	difficulty = diff;
+}
+
 // We shall test spanwer creation with fixed variables
 Spawner* SceneGame::makeSpawner(){
 	Spawner* newSpawn;
@@ -497,7 +491,7 @@ Movement* SceneGame::makeMovement(sf::Vector2f vertex){
 
 	switch (idx){
 	case (1) :
-		wordKey = "straight"; // "straight" replaced with "circle" for test purposes
+		wordKey = "straight";
 		break;
 	case (2) :
 		wordKey = "circle";
@@ -506,7 +500,7 @@ Movement* SceneGame::makeMovement(sf::Vector2f vertex){
 		wordKey = "sine";
 		break;
 	default:
-		wordKey = "waypoint"; // "waypoint" replaced with "sine" for test purposes
+		wordKey = "waypoint"; 
 		break;
 	}
 
@@ -555,8 +549,79 @@ Movement* SceneGame::makeMovement(sf::Vector2f vertex){
 	return newMove;
 }
 
+
+// Will work on later
+Enemy* SceneGame::makeEnemy(Movement* movement, Weapon* weapon){
+
+	return nullptr;
+}
+
+
+// Will work on later
+// this will be for the enemy
+
+Weapon* SceneGame::makeWeapon(){
+	return nullptr;
+}
+
+void SceneGame::makePickup(){
+
+	// after a few enemy spawns, spawn a pickup with a randomly chosen weapon
+	if (scene_ticks % (spawn_time * (2 + difficulty)) == 0){
+		
+		int weapons = 6;
+		int weapon_choose = rand() % weapons;
+
+		std::vector<BulletTemplate*> player_weapon;
+		Weapon* pickup_weapon = nullptr;
+
+		if (weapon_choose == 0){
+			// single shot
+			player_weapon.push_back(new BulletTemplate("bulletPlayer",1,15,false,0));
+			pickup_weapon = new Weapon(player_weapon, "single", 60);
+		}
+		else if (weapon_choose == 1){
+			// tail shot
+			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, 0));
+			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, 180));
+			pickup_weapon = new Weapon(player_weapon, "single", 60);
+		}
+		else if (weapon_choose == 2){
+			// vertical shot
+			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, 90));
+			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, 270));
+			pickup_weapon = new Weapon(player_weapon, "single", 60);
+		}
+		else if (weapon_choose == 3){
+			// Front double
+			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, 10));
+			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, -10));
+			pickup_weapon = new Weapon(player_weapon, "single", 60);
+		}
+		else if (weapon_choose == 4){
+			// Back double
+			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, 190));
+			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, 170));
+			pickup_weapon = new Weapon(player_weapon, "single", 60);
+		}
+		else if (weapon_choose == 5){
+			// Tri-front
+			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 20, false, 0));
+			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 20, false, 15));
+			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 20, false, -15));
+			pickup_weapon = new Weapon(player_weapon, "single", 60);
+		}
+		sf::Vector2f window_spawn = game->window.mapPixelToCoords(
+			sf::Vector2i(game->window.getSize().x, game->window.getSize().y));
+		Pickup* powItem = new Pickup(this,"pickup", sf::Vector2f(window_spawn.x + 50, 300),pickup_weapon);
+		this->addEntity(powItem);
+
+	}
+
+}
+
 void SceneGame::makeTerrain(){
-	// make terrain 1/3 of the time
+	// make terrain 1/2 of the time
 	if (scene_ticks % spawn_time == 0 &&
 		rand() % 2 == 0){
 
@@ -577,8 +642,46 @@ void SceneGame::makeTerrain(){
 		newBlock->setPosition(window_size.x + newBlock->getLocalBounds().width / 2,
 			(window_size.y * top_bot) - ((2 * (top_bot) - 1) * newBlock->getLocalBounds().height / 2));
 		
+		// **later** will add in terrain enemy with given position of the terrain
+		makeTerrainEnemy(newBlock);
 
 	}
+}
+
+void SceneGame::makeTerrainEnemy(Terrain* land){
+	if (rand() % 3 == 0){
+		// create land enemy with the terrain's info
+
+
+		// if the terrain is placed on top of screen, fall up
+		// otherwise if terrain is placed at bottom, fall down
+		float gravity = -0.8;
+		if (land->getGlobalBounds().top > (game->window.getSize().y / 2)){
+			gravity *= -1;
+		}
+		int _flip = gravity > 0 ? 1 : -1;
+
+		// for testing purposes, we will have one type of enemy that will stay on the ground
+		// with pre-defined weapon and movement
+
+		Movement* land_move = new Movement("stay", sf::Vector2f(0, 0), {0});
+		std::vector<BulletTemplate*> land_shoot_bullets;
+		land_shoot_bullets.push_back(new BulletTemplate("bulletEnemy",
+			                 1, 10, false, (30 * _flip) ));
+		Weapon* land_shoot = new Weapon(land_shoot_bullets, "single", 60);
+
+		EnemyTerrain* landEnemy = new EnemyTerrain(this,"enemyLand",1,0,false,
+			    sf::Vector2f(land->getPosition().x, land->getPosition().y -
+				              (land->getGlobalBounds().height * _flip)),
+				land_shoot, land_move,gravity,false);
+		landEnemy->setScale(1,_flip);
+		addEntity(landEnemy);
+
+	}
+}
+
+void SceneGame::makeWaypoints(){
+
 }
 
 void SceneGame::setupStars(){
@@ -640,9 +743,9 @@ void SceneGame::gameOver(){
 	}
 	sound_list.clear();
 
-	game->setScore(0);
 	game->setMultiplier(1);
 	game->setHiScore();
+	game->setScore(0);
 	game->setGameOver(true);
 
 	this->game->popScene();

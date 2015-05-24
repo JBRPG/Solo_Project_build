@@ -4,6 +4,10 @@ metal wall, media/images/Metal.png
 bulletPlayer, media/images/playerBullet.png
 bulletEnemy, media/images/enemyBullet.png
 enemySprite, media/images/enemy.png
+enemy0Sprite, media/images/enemy0.png
+enemy1Sprite, media/images/enemy1.png
+enemy2Sprite, media/images/enemy2.png
+enemyLand, media/images/enemy_land.png
 explodeTest, media/images/explosion_test.png
 explodeAnimate, media/images/explosion_animation.png
 pickup, media/images/pickup.png

@@ -17,7 +17,7 @@ private:
 
 	bool turn_edge;
 	bool on_terrain;
-	bool fall_dir; // affected by gravity value, used for landing on terrain at top or bottom
+	bool fall_dir; // affected by gravity value, used for landing on terrain at top or bottom of screen
 
 	// functions
 
@@ -55,7 +55,7 @@ public:
 	void update(float dt);
 	int getTicks();
 
-	void updateMovemnt(Movement&);
+	void updateMovement(Movement&);
 	void updateWeapon(Weapon&);
 
 

@@ -2,6 +2,7 @@
 #include <cmath>
 
 #include "enemyTerrain.hpp"
+#include "terrain.hpp"
 
 
 // constructors
@@ -91,7 +92,8 @@ void Movement::lookupMovement(Entity& entity, std::string name){
 		{"straight", &Movement::straight},
 		{"circle", &Movement::circle},
 		{ "sine", &Movement::sinusodial },
-		{ "walk", &Movement::walk }
+		{ "walk", &Movement::walk },
+		{ "stay", &Movement::stay }
 	};
 
 	auto entry = table.find(name);
@@ -211,6 +213,19 @@ void Movement::walk(Entity& entity, sf::Vector2f vertex, std::vector<float> para
 	if (EnemyTerrain* enemyLand = dynamic_cast<EnemyTerrain*> (&entity)){
 		// implement walking behavior
 
+		enemyLand->move(enemyLand->getSpeed(), enemyLand->getFallSpeed());
+		
+		// will have to develop more
+		// if the enemy has a turn-around behavior
+
+	}
+}
+
+// This behavior is exclusive for terrain enemy
+void Movement::stay(Entity& entity, sf::Vector2f vertex, std::vector<float> params){
+	if (EnemyTerrain* enemyLand = dynamic_cast<EnemyTerrain*> (&entity)){
+		// implement stay behavior
+		enemyLand->move(0,enemyLand->getFallSpeed());
 
 	}
 }

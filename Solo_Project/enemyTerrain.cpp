@@ -15,7 +15,7 @@ EnemyTerrain::EnemyTerrain(SceneGame* scene, std::string tex, int hp, float spee
 // inherited functions
 
 void EnemyTerrain::update(float dt){
-
+	Enemy::update(dt);
 }
 
 int EnemyTerrain::getTicks(){
@@ -24,6 +24,11 @@ int EnemyTerrain::getTicks(){
 
 void EnemyTerrain::updateWeapon(Weapon& weapon){
 	Enemy::updateWeapon(weapon);
+}
+
+void EnemyTerrain::updateMovement(Movement& movement){
+	fallSpeed += gravity;
+	Enemy::updateMovement(movement);
 }
 
 // get/set functions
@@ -71,9 +76,25 @@ void EnemyTerrain::collideWith(Entity& other){
 
 		   if enemy lands "on top of" terrain, set falling speed to 0
 
-		   if enemy is "under" the terrain, set position to be on "top" of terrain
+		   if enemy is "under" or "in" the terrain, set position to be on "top" of terrain
 
 		*/
+		sf::Vector2f terrain_top;
+		terrain_top.x = getPosition().x;
+		terrain_top.y = land->getPosition().y -
+			(((2 * fall_dir) - 1) * ((
+			land->getGlobalBounds().height / 2) +
+			(this->getGlobalBounds().height / 2)));
+		setPosition(terrain_top);
+		setFallSpeed(0);
+		on_terrain = true;
+
 	}
 
 }
+
+
+/*
+   If the terrain enemy fails to collide with any terrain pieces "below" the grouding,
+   then make the terrain enemy fall
+*/

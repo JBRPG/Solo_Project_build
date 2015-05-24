@@ -70,6 +70,8 @@ private:
 	std::vector<bool> movement_select_list;
 	
 	int spawn_time = 180; // For now we have it affecting all spawners
+	
+	int difficulty = 1;
 
 	int scene_ticks;
 
@@ -100,10 +102,12 @@ private:
 	// Procedural Content Generation-related functions
 
 	Movement* makeMovement(sf::Vector2f); // make movements
-	// make enemies
-	// make weapons
-	// make terrain
-	void makeTerrain();// make pickups
+	Enemy* makeEnemy(Movement*, Weapon*); // make generic type of enemies
+	Weapon* makeWeapon(); // make weapons
+	void makePickup(); // make pickups
+	void makeTerrain(); // make terrain
+	void makeWaypoints(); // make waypoints
+	void makeTerrainEnemy(Terrain*); // make terrain-type enemies
 
 
 public:
@@ -132,6 +136,9 @@ public:
 
 	int getSpawnTime(){ return spawn_time; };
 	void setSpawnTime(int time){ spawn_time = time; };
+
+	int getDifficulty();
+	void setDifficullty(int);
 
 	void playerKilled();
 

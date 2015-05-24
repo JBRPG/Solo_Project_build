@@ -47,7 +47,7 @@ void Player::collideWith(Entity& other){
 
 
 	else if (Terrain* land = dynamic_cast<Terrain*> (&other)){
-		myScene->storeRemovedEntity(this);
+		health = 0;
 	}
 }
 
@@ -96,7 +96,7 @@ void Player::movePlayer(){
 	sf::Vector2f tl_window_view = myScene->game->window.mapPixelToCoords(
 		sf::Vector2i(0,0));
 	sf::Vector2f br_window_view = myScene->game->window.mapPixelToCoords(
-		sf::Vector2i(myScene->game->window.getSize().x, myScene->game->window.getSize().x));
+		sf::Vector2i(myScene->game->window.getSize().x, myScene->game->window.getSize().y));
 
 	if (this->getGlobalBounds().left < tl_window_view.x){
 		this->setPosition(tl_window_view.x + this->getGlobalBounds().width / 2,
