@@ -73,7 +73,7 @@ SceneGame::SceneGame(Game* game){
 	// movement list contains 4 types of movement as of now
 	movement_select_list = std::vector<bool>(4, false);
 	waypoint_select_list = std::vector<int>(6, 0);
-	weapon_select_list = std::vector<int>(3, 0);
+	weapon_select_list = std::vector<int>(4, 0);
 
 }
 
@@ -126,7 +126,7 @@ void SceneGame::update(float dt){
 
 
 	checkStars();
-
+	checkDifficulty();
 	makeTerrain();
 	makePickup();
 	spawnTimer(); 
@@ -575,6 +575,12 @@ EnemyTemplate* SceneGame::makeEnemy(Movement* movement, Weapon* weapon){
 		new_Enemy = new EnemyTemplate(this, "enemy2Sprite", 1, 4, false, movement->getVertex());
 
 	}
+	else if (weapon->getKeyword() == "sequence_multi_enemy"){
+
+
+		new_Enemy = new EnemyTemplate(this, "enemy1Sprite", 1, 4, false, movement->getVertex());
+
+	}
 
 	return new_Enemy;
 }
@@ -622,6 +628,9 @@ Weapon* SceneGame::makeWeapon(){
 	case (2) :
 		wordKey = "sequence_enemy";
 		break;
+	case (3) :
+		wordKey = "sequence_multi_enemy";
+		break;
 	default:
 		wordKey = "single";
 		break;
@@ -645,6 +654,16 @@ Weapon* SceneGame::makeWeapon(){
 		bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 5));
 		bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -5));
 		new_weapon = new Weapon(bullets, wordKey, 60, { 12 });
+
+
+	}
+	else if (wordKey == "sequence_multi_enemy"){
+
+		bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
+		bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 180));
+		bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 90));
+		bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 270));
+		new_weapon = new Weapon(bullets, wordKey, 30, {20, 2 });
 
 
 	}
@@ -785,7 +804,7 @@ void SceneGame::makeWaypoints(){
 }
 
 void SceneGame::checkDifficulty(){
-	int difficultyPeriod = 1000;
+	int difficultyPeriod = 1200;
 	int difficultyMax = 5;
 
 	if (scene_ticks % difficultyPeriod == 0 && difficulty < difficultyMax){

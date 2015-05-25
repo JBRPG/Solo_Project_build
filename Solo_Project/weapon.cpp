@@ -69,6 +69,7 @@ Weapon::Weapon(const Weapon& source){
 	spawnTime = source.spawnTime;
 	keyword = source.keyword; 
 	enemydidShoot = source.enemydidShoot;
+	bullets_fired = source.bullets_fired;
 
 	for (auto bullet : source.bullet_list){
 		bullet_list.push_back(new BulletTemplate(*bullet));
@@ -136,7 +137,8 @@ void Weapon::lookupShoot(Entity& shooter, std::string name){
 		{ "rapid_player", &Weapon::rapidPlayer},
 		{ "rapid_enemy", &Weapon::rapidEnemy },
 		{ "hold_player", &Weapon::holdPlayer },
-		{ "sequence_enemy", &Weapon::sequenceEnemy }
+		{ "sequence_enemy", &Weapon::sequenceEnemy },
+		{ "sequence_multi_enemy", &Weapon::sequenceMultiEnemy }
 	};
 
 	auto entry = table.find(name);
@@ -331,9 +333,12 @@ void Weapon::sequenceMultiFire(Entity& shooter){
 	if (sequenceDelayTime == 0){
 
 		if (sequence_idx < bullet_list.size()){
-			shootBullet(shooter, *bullet_list[sequence_idx]);
+			for (int i = 0; i < bullets_fired; ++i){
+				int shoot_idx = (sequence_idx + i) % bullet_list.size();
+				shootBullet(shooter, *bullet_list[shoot_idx]);
+			}
 			sequenceDelayTime = sequenceDelaySet;
-			sequence_idx++;
+			sequence_idx += bullets_fired;
 		}
 		else {
 			shootCooldownTime = shootCooldownSet;
@@ -355,7 +360,10 @@ void Weapon::sequenceEnemy(Entity& shooter){
 }
 
 void Weapon::sequenceMultiEnemy(Entity& shooter){
-
+	if (shootCooldownTime == 0){
+		sequenceMultiFire(shooter);
+	}
+	else shootCooldownTime--;
 }
 
 std::string Weapon::getKeyword(){
