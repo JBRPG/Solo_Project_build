@@ -114,6 +114,7 @@ private:
 	void makeTerrain(); // make terrain
 	void makeWaypoints(); // make waypoints
 	void makeTerrainEnemy(Terrain*); // make terrain-type enemies
+	Weapon* setup_bullets(std::string&, std::vector<BulletTemplate*>&);
 
 
 public:
