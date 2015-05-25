@@ -46,6 +46,7 @@ private:
 	int sequenceDelayTime; // delay time between individual bullets 
 	int sequenceDelaySet;
 	int sequence_idx;
+	int bullets_fired;
 
 	// Player only
 	int holdDurationTime; // player does not let go, shot enter cooldown
@@ -64,6 +65,7 @@ private:
 	// functions
 	void rapidFire(Entity&);
 	void sequenceFire(Entity&);
+	void sequenceMultiFire(Entity&);
 
 	// Functions for shooting bullets
 
@@ -107,7 +109,10 @@ public:
 	void rapidPlayer(Entity&);
 	void holdPlayer(Entity&);
 	void sequenceEnemy(Entity&);
+	void sequenceMultiEnemy(Entity&);
 	void singleShot(Entity&);
+
+	std::string getKeyword();
 
 };
 

@@ -67,7 +67,12 @@ private:
 	std::vector <Spawner*> spawner_list;
 	std::vector<Terrain*> terrain_list;
 
+	// PCG selection 
 	std::vector<bool> movement_select_list;
+	std::vector<int> weapon_select_list;
+	std::vector<int> waypoint_select_list;
+	int weapon_repeat = 1;
+	int waypoint_repeat = 1;
 	
 	int spawn_time = 180; // For now we have it affecting all spawners
 	
@@ -101,8 +106,9 @@ private:
 
 	// Procedural Content Generation-related functions
 
+	void checkDifficulty();
 	Movement* makeMovement(sf::Vector2f); // make movements
-	Enemy* makeEnemy(Movement*, Weapon*); // make generic type of enemies
+	EnemyTemplate* makeEnemy(Movement*, Weapon*); // make generic type of enemies
 	Weapon* makeWeapon(); // make weapons
 	void makePickup(); // make pickups
 	void makeTerrain(); // make terrain

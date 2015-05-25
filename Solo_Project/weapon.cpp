@@ -39,6 +39,12 @@ bullet_list(bullets), keyword(key_name), shootCooldownSet(delay)
 			sequenceDelaySet = key_params[0];
 			return;
 		}
+
+		if (keyword == "sequence_multi_enemy"){
+			sequenceDelaySet = key_params[0];
+			bullets_fired = key_params[1];
+			return;
+		}
 		exit(1);
 }
 
@@ -315,9 +321,43 @@ void Weapon::sequenceFire(Entity& shooter){
 
 }
 
+
+// Will amke a few changes so enemy can shoot multiple bullets at once in sequence
+
+void Weapon::sequenceMultiFire(Entity& shooter){
+
+	// Will polish up area later
+
+	if (sequenceDelayTime == 0){
+
+		if (sequence_idx < bullet_list.size()){
+			shootBullet(shooter, *bullet_list[sequence_idx]);
+			sequenceDelayTime = sequenceDelaySet;
+			sequence_idx++;
+		}
+		else {
+			shootCooldownTime = shootCooldownSet;
+			sequence_idx = 0;
+		}
+	}
+	else {
+		sequenceDelayTime--;
+	}
+}
+
+
+
 void Weapon::sequenceEnemy(Entity& shooter){
 	if (shootCooldownTime == 0){
 			sequenceFire(shooter);
 	}
 	else shootCooldownTime--;
+}
+
+void Weapon::sequenceMultiEnemy(Entity& shooter){
+
+}
+
+std::string Weapon::getKeyword(){
+	return keyword;
 }

@@ -72,6 +72,8 @@ SceneGame::SceneGame(Game* game){
 
 	// movement list contains 4 types of movement as of now
 	movement_select_list = std::vector<bool>(4, false);
+	waypoint_select_list = std::vector<int>(6, 0);
+	weapon_select_list = std::vector<int>(3, 0);
 
 }
 
@@ -415,13 +417,9 @@ void SceneGame::setDifficullty(int diff){
 Spawner* SceneGame::makeSpawner(){
 	Spawner* newSpawn;
 
-	std::vector<BulletTemplate*> enemy_weapon;
-
-	// 2 shot sequence
-	enemy_weapon.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -5));
-	enemy_weapon.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 5));
-
 	
+	Weapon* enemy_weapon = makeWeapon();
+
 	// this is where you assign the spawner through window coordinates
 	// make sure that the initial location is randomized
 
@@ -432,14 +430,12 @@ Spawner* SceneGame::makeSpawner(){
 	sf::Vector2f window_to_map_spawn = game->window.mapPixelToCoords(spawn_window_coords, gameView);
 
 
-	// will replace movement with semi-randomized system
 	Movement* enemy_movement = makeMovement(window_to_map_spawn);
 
 	newSpawn = new Spawner(
-		new Weapon(enemy_weapon, "sequence_enemy", 36, { 8 }),
+		new Weapon(*enemy_weapon),
 		new Movement(*enemy_movement),
-		new EnemyTemplate(this, "enemySprite", 1, 4, false,
-		enemy_movement->getVertex()), {30, 3}, spawn_window_coords);
+		makeEnemy(enemy_movement, enemy_weapon), {30, 3}, spawn_window_coords);
 
 
 	return newSpawn;
@@ -551,17 +547,120 @@ Movement* SceneGame::makeMovement(sf::Vector2f vertex){
 
 
 // Will work on later
-Enemy* SceneGame::makeEnemy(Movement* movement, Weapon* weapon){
 
-	return nullptr;
+// Main focus today!
+
+EnemyTemplate* SceneGame::makeEnemy(Movement* movement, Weapon* weapon){
+
+	EnemyTemplate* new_Enemy = nullptr;
+
+	// determine the enemy graphic based on weapon type
+	if (weapon->getKeyword() == "single"){
+
+
+		new_Enemy = new EnemyTemplate(this, "enemySprite",1,4,false,movement->getVertex());
+
+	}
+
+	else if (weapon->getKeyword() == "rapid_enemy"){
+
+
+		new_Enemy = new EnemyTemplate(this, "enemy0Sprite", 1, 4, false, movement->getVertex());
+
+	}
+
+	else if (weapon->getKeyword() == "sequence_enemy"){
+
+
+		new_Enemy = new EnemyTemplate(this, "enemy2Sprite", 1, 4, false, movement->getVertex());
+
+	}
+
+	return new_Enemy;
 }
 
 
 // Will work on later
 // this will be for the enemy
 
+
+// randomly select a weapon type for an enemy
 Weapon* SceneGame::makeWeapon(){
-	return nullptr;
+
+	// Will add in difficulty-based adjustment AFTER getting test run complete
+	Weapon* new_weapon = nullptr;
+
+	// determine through random drawing, but allow all possiblities at least multiple times
+	
+	int idx = rand() % weapon_select_list.size();
+
+	bool all_used = true;
+	for (int count : weapon_select_list){
+		if (count != weapon_repeat){
+			all_used = false;
+			break;
+		}
+	}
+	// reset the weapon selection if they are all used once 
+	if (all_used){
+		std::fill(weapon_select_list.begin(), weapon_select_list.end(), 0);
+	}
+
+	while (weapon_select_list[idx] == weapon_repeat){
+		idx = (idx + 1) % weapon_select_list.size();
+	}
+	weapon_select_list[idx]++;
+
+
+	// now select a weapon
+	std::string wordKey;
+
+	switch (idx){
+	case (1) :
+		wordKey = "rapid_enemy";
+		break;
+	case (2) :
+		wordKey = "sequence_enemy";
+		break;
+	default:
+		wordKey = "single";
+		break;
+	}
+
+
+	// Right now we are only testing the most basic version
+	// before going onto higher difficulty versions
+
+
+	std::vector<BulletTemplate*> bullets;
+
+	if (wordKey == "rapid_enemy"){
+
+		bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
+		new_weapon = new Weapon(bullets, wordKey, 60, {6,12});
+
+	}
+	else if (wordKey == "sequence_enemy"){
+
+		bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 5));
+		bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -5));
+		new_weapon = new Weapon(bullets, wordKey, 60, { 12 });
+
+
+	}
+	else if (wordKey == "single"){
+
+
+		bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
+		new_weapon = new Weapon(bullets, wordKey, 60);
+
+
+	}
+
+
+
+
+	return new_weapon;
 }
 
 void SceneGame::makePickup(){
@@ -680,7 +779,19 @@ void SceneGame::makeTerrainEnemy(Terrain* land){
 	}
 }
 
+// Will handle it later
 void SceneGame::makeWaypoints(){
+
+}
+
+void SceneGame::checkDifficulty(){
+	int difficultyPeriod = 1000;
+	int difficultyMax = 5;
+
+	if (scene_ticks % difficultyPeriod == 0 && difficulty < difficultyMax){
+		difficulty++;
+	}
+
 
 }
 
