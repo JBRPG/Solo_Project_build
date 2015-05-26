@@ -46,6 +46,7 @@ private:
 
 	Player* player;
 	bool player_dead = false;
+	int gameOver_wait = 180;
 	
 	std::vector<Enemy*> enemies; // temporary variable
 	std::vector <std::vector < BulletTemplate* > > bullet_Patterns;
@@ -85,7 +86,8 @@ private:
 
 	// functions
 
-	void gameOver(); // if player dies, go back to start screen;
+	void gameOver(); // if countdown over, go back to start screen;
+	void gameOverCountdown(); // if player dies, have a wait period before going to title screen
 
 	void checkSounds();
 	void deleteSounds();

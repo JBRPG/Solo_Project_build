@@ -3,6 +3,7 @@
 #include "pickup.hpp"
 #include "soundPlayer.hpp"
 #include "terrain.hpp"
+#include "explosion.hpp"
 
 
 void Player::update(float dt){
@@ -135,5 +136,16 @@ void Player::checkHealthPlayer(){
 	if (this->health <= 0){
 		myScene->playerKilled();
 		myScene->storeRemovedEntity(this);
+
+		Explosion* explode = new Explosion
+			(TextureManager::instance()->getRef("explodePlayer"), sf::IntRect(0, 0, 64, 32), 10);
+		explode->setSpawnTime(1.0f);
+		explode->setPosition(this->getPosition().x - this->getGlobalBounds().width / 2,
+			this->getPosition().y);
+
+		myScene->addEntity(explode); // you have to actually add the entity because
+		// storeAdded list has already been checked during update
+
+
 	}
 }

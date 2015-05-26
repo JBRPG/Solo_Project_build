@@ -12,7 +12,6 @@ class Game;
 class SceneTitle : public Scene{
 private:
 
-	sf::Sound player_destroyed;
 
 	sf::Font font  = sf::Font();
 	sf::Text controls;

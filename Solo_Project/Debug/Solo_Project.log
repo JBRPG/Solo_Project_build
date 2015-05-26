@@ -1,4 +1,4 @@
-﻿Build started 5/25/2015 4:25:14 PM.
+﻿Build started 5/26/2015 3:32:07 PM.
      1>Project "C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\Solo_Project\Solo_Project.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\/SFML-2.1/include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt bullet.cpp collisionGrid.cpp enemy.cpp enemyTerrain.cpp entity.cpp explosion.cpp game.cpp input.cpp main.cpp movement.cpp pickup.cpp player.cpp scene.cpp sceneGame.cpp sceneTitle.cpp soundPlayer.cpp spawner.cpp terrain.cpp textureManager.cpp weapon.cpp
@@ -35,7 +35,7 @@
          player.cpp
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(165): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
                  c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\player.cpp(61): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\player.cpp(62): warning C4305: 'initializing' : truncation from 'double' to 'float'
          pickup.cpp
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(165): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
                  c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
@@ -104,4 +104,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:30.35
+Time Elapsed 00:00:17.99

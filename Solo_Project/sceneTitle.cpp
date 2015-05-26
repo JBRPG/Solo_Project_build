@@ -11,8 +11,6 @@
 SceneTitle::SceneTitle(Game* game)
 {
 
-	player_destroyed = sf::Sound(SoundPlayer::instance()->getRef("player_destroyed"));
-
 	this->game = game;
 
 	sf::Vector2f pos = sf::Vector2f(this->game->window.getSize());
@@ -90,7 +88,6 @@ void SceneTitle::handleInput(){
 void SceneTitle::play_playerDefeat(){
 	if (game->getAtStartScreen()) return;
 	if (game->getGameOver()){
-		player_destroyed.play();
 		game->setAtStartScreen(true);
 	}
 }

@@ -10,6 +10,7 @@ enemy2Sprite, media/images/enemy2.png
 enemyLand, media/images/enemy_land.png
 explodeTest, media/images/explosion_test.png
 explodeAnimate, media/images/explosion_animation.png
+explodePlayer, media/images/player_explode.png
 pickup, media/images/pickup.png
 title, media/images/Randamius_title.png
 star, media/images/star.png

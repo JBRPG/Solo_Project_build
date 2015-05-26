@@ -219,7 +219,7 @@ void SceneGame::update(float dt){
 
 	// add in scrolling stars later
 
-	gameOver();
+	gameOverCountdown();
 
 
 }
@@ -1008,8 +1008,18 @@ void SceneGame::gameOver(){
 	this->game->popScene();
 }
 
+void SceneGame::gameOverCountdown(){
+	if (player_dead){
+		gameOver_wait--;
+	}
+	if (gameOver_wait == 0){
+		gameOver();
+	}
+}
+
 void SceneGame::playerKilled(){
 	player_dead = true;
+	playSound("player_destroyed");
 }
 
 
