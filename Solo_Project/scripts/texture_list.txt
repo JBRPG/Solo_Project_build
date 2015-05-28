@@ -1,6 +1,7 @@
 playerSprite, media/images/player.png
 background, media/images/background.png
 metal wall, media/images/Metal.png
+terrain, media/images/terrain_jpmcgrat.png
 bulletPlayer, media/images/playerBullet.png
 bulletEnemy, media/images/enemyBullet.png
 enemySprite, media/images/enemy.png

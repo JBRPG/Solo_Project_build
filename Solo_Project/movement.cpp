@@ -157,9 +157,11 @@ void Movement::circle(Entity& entity, sf::Vector2f vertex, std::vector<float> pa
 
 	float radius = params[0];
 
+	this->setEntityVertex(sf::Vector2f(vertex.x - (entity.getSpeed() / 2 ), vertex.y));
+
 	entity.setPosition(
-		radius * cos((entity.getTicks() * entity.getSpeed()) * deg_to_rad) + vertex.x,
-		radius * sin((entity.getTicks() * entity.getSpeed()) * deg_to_rad) + vertex.y);
+		radius * cos((entity.getTicks() * entity.getSpeed()) * deg_to_rad) + getVertex().x,
+		radius * sin((entity.getTicks() * entity.getSpeed()) * deg_to_rad) + getVertex().y);
 
 	// check with breakpoint
 
@@ -203,7 +205,7 @@ void Movement::sinusodial(Entity& entity, sf::Vector2f vertex, std::vector<float
 
 
 		entity.getPosition().x - entity.getSpeed(),
-		amplitude * sin( (2 * pi) * period * entity.getTicks()) + vertex.y);
+		amplitude * sin( (2 * pi) * period * entity.getTicks()) + getVertex().y);
 
 } 
 

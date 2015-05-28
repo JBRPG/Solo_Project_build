@@ -56,9 +56,9 @@ private:
 	// Other important variables
 
 	sf::Font font = sf::Font();
-	sf::Text fpsDisplay = sf::Text("FPS:", font, 30);
+	sf::Text fpsDisplay = sf::Text("FPS:", font, 16);
 	std::string framerate;
-	sf::Text score = sf::Text("Score: ", font, 30);
+	sf::Text score = sf::Text("Score: ", font, 16);
 	std::string curr_score;
 
 	collisionGrid gridBox;

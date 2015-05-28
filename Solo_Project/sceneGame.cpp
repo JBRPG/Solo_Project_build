@@ -33,7 +33,7 @@ SceneGame::SceneGame(Game* game){
 	gridBox.setOrigin(-(int(game->window.getSize().x / 4)),
 		              -(int(game->window.getSize().y / 4)));
 
-	font.loadFromFile("media/arial.ttf");
+	font.loadFromFile("media/PressStart2P-Regular.ttf");
 	fpsDisplay.setPosition(50, 0);
 	score.setPosition(500, 0);
 
@@ -511,8 +511,8 @@ Movement* SceneGame::makeMovement(sf::Vector2f vertex){
 		// Will explore more options for creating unique waypoint patterns later.
 
 		std::vector<sf::Vector2f> waypoints = {
-			sf::Vector2f(-200, 0),
-			sf::Vector2f(-200, -200),
+			sf::Vector2f(-600, 0),
+			sf::Vector2f(-600, -200),
 			sf::Vector2f(0, -200),
 		};
 
@@ -560,27 +560,27 @@ EnemyTemplate* SceneGame::makeEnemy(Movement* movement, Weapon* weapon){
 	if (weapon->getKeyword() == "single"){
 
 
-		new_Enemy = new EnemyTemplate(this, "enemySprite",1,4,false,movement->getVertex());
+		new_Enemy = new EnemyTemplate(this, "enemySprite",1,8,false,movement->getVertex());
 
 	}
 
 	else if (weapon->getKeyword() == "rapid_enemy"){
 
 
-		new_Enemy = new EnemyTemplate(this, "enemy0Sprite", 1, 4, false, movement->getVertex());
+		new_Enemy = new EnemyTemplate(this, "enemy0Sprite", 1, 8, false, movement->getVertex());
 
 	}
 
 	else if (weapon->getKeyword() == "sequence_enemy"){
 
 
-		new_Enemy = new EnemyTemplate(this, "enemy2Sprite", 1, 4, false, movement->getVertex());
+		new_Enemy = new EnemyTemplate(this, "enemy2Sprite", 1, 8, false, movement->getVertex());
 
 	}
 	else if (weapon->getKeyword() == "sequence_multi_enemy"){
 
 
-		new_Enemy = new EnemyTemplate(this, "enemy1Sprite", 1, 4, false, movement->getVertex());
+		new_Enemy = new EnemyTemplate(this, "enemy1Sprite", 1, 8, false, movement->getVertex());
 
 	}
 
@@ -876,7 +876,7 @@ void SceneGame::makeTerrain(){
 		int terr_height = int(pow(2, pow_height));
 		bool top_bot = rand() % 2 == 1 ? true : false;
 
-		Terrain* newBlock = new Terrain(TextureManager::instance()->getRef("metal wall"),
+		Terrain* newBlock = new Terrain(TextureManager::instance()->getRef("terrain"),
 			sf::IntRect(0,0,terr_width,terr_height), 100, 0, 1);
 		terrain_list.push_back(newBlock);
 		addEntity(newBlock);

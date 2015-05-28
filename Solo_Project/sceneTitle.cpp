@@ -18,10 +18,10 @@ SceneTitle::SceneTitle(Game* game)
 	pos *= 0.5f;
 	titleView.setCenter(pos);
 
-	font.loadFromFile("media/arial.ttf");
-	controls = sf::Text("Controls:\n Arrows - Move   Space - Shoot\n\n\nPress Enter to begin game.", font, 30);
+	font.loadFromFile("media/PressStart2P-Regular.ttf");
+	controls = sf::Text("Controls:\n Arrows - Move   Space - Shoot\n\n\nPress Enter to begin game.", font, 16);
 	controls.setPosition(200, 400);
-	hiscore = sf::Text("Hi Score: " + game->getHiScore(), font, 30);
+	hiscore = sf::Text("Hi Score: " + game->getHiScore(), font, 16);
 	hiscore.setPosition(500, 0);
 
 	title = sf::Sprite(TextureManager::instance()->getRef("title"));
