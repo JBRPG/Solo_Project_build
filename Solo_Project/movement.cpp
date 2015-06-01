@@ -92,6 +92,7 @@ void Movement::lookupMovement(Entity& entity, std::string name){
 		{"straight", &Movement::straight},
 		{"circle", &Movement::circle},
 		{ "sine", &Movement::sinusodial },
+		{ "bounds", &Movement::bounds },
 		{ "walk", &Movement::walk },
 		{ "stay", &Movement::stay }
 	};
@@ -118,6 +119,8 @@ void Movement::lookupMovement(Entity& entity, std::vector<sf::Vector2f> waypoint
 
 	  Now move the entity from one waypoint to another.
 	*/
+
+	// update waypoint movement with cycle option
 
 	if (entity.getGlobalBounds().contains(next_waypoint) &&
 		waypoint_idx < waypoints.size() - 1){
@@ -207,7 +210,82 @@ void Movement::sinusodial(Entity& entity, sf::Vector2f vertex, std::vector<float
 		entity.getPosition().x - entity.getSpeed(),
 		amplitude * sin( (2 * pi) * period * entity.getTicks()) + getVertex().y);
 
-} 
+}
+
+
+/*
+  There will be 3 bound types depending on float value
+  0 horizontal
+  1 vertical
+  2 both
+*/
+void Movement::bounds(Entity& entity, sf::Vector2f vertex, std::vector<float> params){
+	if (params.size() != 2){
+		std::cerr << "Need two float values for sine: " <<
+			"angle(0) and bound_type[0-2](1)" << std::endl;
+		return;
+	}
+
+	float angle_x;
+	float angle_y;
+
+	float pi = 3.14;
+	float deg_to_rad = pi / 180;
+
+	// Now first calculate the current components (X and Y)
+
+	angle_x = cos(params[0] * deg_to_rad);
+	angle_y = sin(params[0] * deg_to_rad);
+
+	// keep moving entity from going out of bounds
+	sf::Vector2f tl_window_view = entity.getScene()->game->window.mapPixelToCoords(
+		sf::Vector2i(0, 0));
+	sf::Vector2f br_window_view = entity.getScene()->game->window.mapPixelToCoords(
+		sf::Vector2i(entity.getScene()->game->window.getSize().x,
+		entity.getScene()->game->window.getSize().y));
+
+	// then change values of the compnents through bound check
+	if (params[1] == 0 || params[1] == 2){
+		if (entity.getGlobalBounds().left < tl_window_view.x){
+			entity.setPosition(tl_window_view.x + entity.getGlobalBounds().width / 2,
+				entity.getPosition().y);
+			angle_x = angle_x > 0 ? angle_x * -1 : angle_x;
+		}
+		if (entity.getPosition().x >= br_window_view.x
+			- entity.getGlobalBounds().width / 2){
+			entity.setPosition(br_window_view.x - entity.getGlobalBounds().width / 2,
+				entity.getPosition().y);
+			angle_x = angle_x < 0 ? angle_x * -1 : angle_x;
+		}
+	}
+	if (params[1] == 1 || params[1] == 2){
+		if (entity.getGlobalBounds().top < tl_window_view.y){
+			entity.setPosition(entity.getPosition().x,
+				tl_window_view.y + entity.getGlobalBounds().height / 2);
+			angle_y = angle_y < 0 ? angle_y * -1 : angle_y;
+		}
+		if (entity.getPosition().y >= br_window_view.y
+			- entity.getGlobalBounds().height / 2){
+			entity.setPosition(entity.getPosition().x,
+				br_window_view.y - entity.getGlobalBounds().height / 2);
+			angle_y = angle_y > 0 ? angle_y * -1 : angle_y;
+		}
+	}
+
+	// then update the angle with changed compounds
+	// and convert back to degrees
+
+	float deg_angle = atan2f(angle_y, angle_x) * (1 / deg_to_rad);
+
+	params[0] = deg_angle;
+	args[0] = params[0];
+
+
+	entity.move(entity.getSpeed() * cos(params[0] * deg_to_rad),
+		entity.getSpeed() * sin(params[0] * deg_to_rad));
+
+
+}
 
 
 // This behavior is exclusive for terrain enemy

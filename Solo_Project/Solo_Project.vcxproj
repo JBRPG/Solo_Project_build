@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="boss.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="collisionGrid.cpp" />
     <ClCompile Include="enemy.cpp" />
@@ -33,6 +34,7 @@
     <ClCompile Include="weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="boss.hpp" />
     <ClInclude Include="bullet.hpp" />
     <ClInclude Include="collisionGrid.hpp" />
     <ClInclude Include="enemy.hpp" />

@@ -17,6 +17,7 @@
 #include "enemy.hpp"
 #include "terrain.hpp"
 #include "enemyTerrain.hpp"
+#include "boss.hpp"
 
 
 SceneGame::SceneGame(Game* game){
@@ -127,9 +128,15 @@ void SceneGame::update(float dt){
 
 	checkStars();
 	checkDifficulty();
-	makeTerrain();
-	makePickup();
-	spawnTimer(); 
+
+
+	if (!boss_summoned){
+		makeTerrain();
+		makePickup();
+		spawnTimer();
+		boss_ticks++;
+		summonBoss();
+	}
 
 	for (auto spawn : spawner_list){
 		spawn->setSpawnLocation(game->window.mapPixelToCoords(spawn->getWindowCoords()));
@@ -516,7 +523,7 @@ Movement* SceneGame::makeMovement(sf::Vector2f vertex){
 			sf::Vector2f(0, -200),
 		};
 
-		newMove = new Movement(vertex, waypoints);
+		newMove = new Movement(vertex, waypoints, false);
 	}
 	else {
 		// make movement based on mathematic formulas
@@ -925,6 +932,51 @@ void SceneGame::makeTerrainEnemy(Terrain* land){
 	}
 }
 
+void SceneGame::makeBoss(){
+
+	// since we only are going to have one boss, it's best
+	// to hardcode necessary items
+
+	// setup location
+	sf::Vector2f boss_spawn = game->window.mapPixelToCoords
+		(sf::Vector2i(game->window.getSize().x, game->window.getSize().y / 2));
+
+	// the boss properties
+
+	std::vector<int> boss_phases = { 30, 10 };
+	std::vector<Weapon*> boss_weapons;
+	std::map<int, std::vector<BulletTemplate*>> bullets_list;
+
+	// 3 way - rapid
+	bullets_list[0].push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
+	bullets_list[0].push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 10));
+	bullets_list[0].push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -10));
+
+
+	// 7 way - Multi-Sequence 4 shot
+	bullets_list[1].push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
+	bullets_list[1].push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 10));
+	bullets_list[1].push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 20));
+	bullets_list[1].push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 30));
+	bullets_list[1].push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -10));
+	bullets_list[1].push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -20));
+	bullets_list[1].push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -30));
+
+	boss_weapons.push_back(new Weapon(bullets_list[0], "rapid_enemy", 60,
+	{ 10, 30 }));
+	boss_weapons.push_back(new Weapon(bullets_list[1], "sequence_multi_enemy", 40,
+	{10,4}));
+	
+	Movement* boss_move = new Movement("bounds", boss_spawn, {90,1});
+
+	Boss* newBoss = new Boss(this,"Boss0",30,6,true,boss_spawn, new Weapon(*boss_weapons[0]),
+		boss_move, "Boss0", boss_weapons, {30,10},60);
+	addEntity(newBoss);
+
+
+
+}
+
 // Will handle it later
 void SceneGame::makeWaypoints(){
 
@@ -1022,6 +1074,17 @@ void SceneGame::playerKilled(){
 	playSound("player_destroyed");
 }
 
+void SceneGame::bossDefeated(){
+	boss_summoned = false;
+	boss_ticks ++;
+}
+
+void SceneGame::summonBoss(){
+	if (boss_ticks % boss_period == boss_period - 1 && !boss_summoned){
+		boss_summoned = true;
+		makeBoss();
+	}
+}
 
 void SceneGame::playSound(std::string sound_buff){
 	sf::Sound* newSound = new sf::Sound(

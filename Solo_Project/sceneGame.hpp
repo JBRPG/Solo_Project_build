@@ -81,6 +81,11 @@ private:
 
 	int scene_ticks;
 
+	int boss_period = 1200;
+	// boss ticks is seperate so it can stop once the boss is summoned
+	int boss_ticks = 0;
+	bool boss_summoned = false;
+
 	sf::Vector2f scrollSpeed = sf::Vector2f(1.0f, 0);
 
 
@@ -116,6 +121,7 @@ private:
 	void makeTerrain(); // make terrain
 	void makeWaypoints(); // make waypoints
 	void makeTerrainEnemy(Terrain*); // make terrain-type enemies
+	void makeBoss(); // make a boss
 	Weapon* setup_bullets(std::string&, std::vector<BulletTemplate*>&);
 
 
@@ -152,5 +158,8 @@ public:
 	void playerKilled();
 
 	void playSound(std::string);
+
+	void bossDefeated();
+	void summonBoss();
 
 };

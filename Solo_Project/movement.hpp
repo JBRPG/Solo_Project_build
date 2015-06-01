@@ -80,6 +80,7 @@ private:
 
 	// other variables
 	int waypoint_idx;
+	bool waypoint_cycle;
 
 	sf::Vector2f curr_waypoint, next_waypoint;
 	float move_angle;
@@ -100,8 +101,8 @@ public:
 
 	// For movements with waypoints
 
-	Movement(sf::Vector2f vertex, std::vector<sf::Vector2f> _waypoints):
-		vertex(vertex)
+	Movement(sf::Vector2f vertex, std::vector<sf::Vector2f> _waypoints, bool cycle):
+		vertex(vertex), waypoint_cycle(cycle)
 	{
 		/*
 		  We shall initalize the waypoints based on offset from the vertex
@@ -178,6 +179,7 @@ public:
 	void circle(Entity&, sf::Vector2f, std::vector<float>);
 	void straight(Entity&, sf::Vector2f, std::vector<float>);
 	void sinusodial(Entity&, sf::Vector2f, std::vector<float>);
+	void bounds(Entity&, sf::Vector2f, std::vector<float>);
 
 	// land enemies only
 	void walk(Entity&, sf::Vector2f, std::vector<float>);

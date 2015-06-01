@@ -9,8 +9,10 @@ enemy0Sprite, media/images/enemy0.png
 enemy1Sprite, media/images/enemy1.png
 enemy2Sprite, media/images/enemy2.png
 enemyLand, media/images/enemy_land.png
+Boss0, media/images/boss_0.png
 explodeTest, media/images/explosion_test.png
 explodeAnimate, media/images/explosion_animation.png
+explodeAnimateBig, media/images/explosion_animation_big.png
 explodePlayer, media/images/player_explode.png
 pickup, media/images/pickup.png
 title, media/images/Randamius_title.png
