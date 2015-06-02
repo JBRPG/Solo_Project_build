@@ -90,8 +90,8 @@ void Player::movePlayer(){
 	// however, the framerate is not constant and often below 60fps,
 	// which causes the scrolling to go faster than the player
 
-	this->move(velocity + myScene->getScrollSpeed()); // this for screen scrolling testing
-	//this->move(velocity);
+	this->move(velocity + myScene->getScrollSpeed());
+	bank_ship();
 
 	// keep player from going out of bounds
 	sf::Vector2f tl_window_view = myScene->game->window.mapPixelToCoords(
@@ -148,4 +148,34 @@ void Player::checkHealthPlayer(){
 
 
 	}
+}
+
+void Player::bank_ship(){
+	bool bank_arr[2] = { false, false };
+
+	if (Input::instance()->pressKeybutton(sf::Keyboard::Up))
+		bank_arr[0] = true;
+	if (Input::instance()->pressKeybutton(sf::Keyboard::Down))
+		bank_arr[1] = true;
+
+	if (bank_arr[0] && !bank_arr[1]){
+		bank_ticks = bank_ticks > (-2 * bank_delay) ? bank_ticks - 1 : -2 * bank_delay;
+	}
+	else if (!bank_arr[0] && bank_arr[1]){
+
+		bank_ticks = bank_ticks < (2 * bank_delay) ? bank_ticks + 1 : 2 * bank_delay;
+	}
+	else {
+		if (bank_ticks > 0){
+			bank_ticks--;
+		}
+		else if (bank_ticks < 0){
+			bank_ticks++;
+		}
+	}
+
+	int frame_val = (bank_ticks / bank_delay) + middle_frame; // will eventually add in the middle value
+
+	// change frame based on value
+	this->setTextureRect(sf::IntRect(getTextureRect().width * frame_val, 0, getTextureRect().width, getTextureRect().height));
 }

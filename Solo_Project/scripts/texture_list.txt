@@ -1,4 +1,5 @@
 playerSprite, media/images/player.png
+playerAnimate, media/images/player_animate.png
 background, media/images/background.png
 metal wall, media/images/Metal.png
 terrain, media/images/terrain_jpmcgrat.png
@@ -15,5 +16,11 @@ explodeAnimate, media/images/explosion_animation.png
 explodeAnimateBig, media/images/explosion_animation_big.png
 explodePlayer, media/images/player_explode.png
 pickup, media/images/pickup.png
+pickup1, media/images/pickup_1_shot.png
+pickup2Back, media/images/pickup_2_back.png
+pickup2Front, media/images/pickup_2_front.png
+pickup3Front, media/images/pickup_3_front.png
+pickupHorizontal, media/images/pickup_h_shot.png
+pickupVertical, media/images/pickup_v_shot.png
 title, media/images/Randamius_title.png
 star, media/images/star.png

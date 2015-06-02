@@ -23,6 +23,18 @@ private:
 	unsigned int lives;
 
 
+	// Will work on ship banking
+	int bank_frame = 0;
+	int bank_delay = 10;
+	int bank_ticks = 0; // add when button pressed, subtract when not held
+
+	int frames;
+	int middle_frame;
+
+	// functions
+
+	void bank_ship(); // ship will only move vetically
+
 public:
 
 	Player(const sf::Texture& tex, int hp, float speed,
@@ -35,13 +47,28 @@ public:
 		  float speed, bool invincibility, int lives) :
 		lives(lives),
 		Entity(tex, rect, hp, speed, invincibility)
-	{};
+	{
+		frames = tex.getSize().x / rect.width;
+		middle_frame = frames / 2;
+	};
 
 	Player(SceneGame* scene, std::string tex, int hp, float speed, bool invincibility,
 		int lives, sf::Vector2f pos, Weapon* weapon) :
 		lives(lives),
 		Entity(scene, tex, hp, speed, invincibility, pos, weapon)
 	{};
+
+	Player(SceneGame* scene, std::string tex, const sf::IntRect& rect, int hp, float speed, bool invincibility,
+		int lives, sf::Vector2f pos, Weapon* weapon) :
+		lives(lives),
+		Entity(scene, tex, rect, hp, speed, invincibility, pos, weapon)
+	{
+		// Since we only have one horizontal strip,
+		// we can simply divide number of frames on X axis
+
+		frames =  this->getTexture()->getSize().x / rect.width;
+		middle_frame = frames / 2;
+	};
 
 	void update(float dt);
 

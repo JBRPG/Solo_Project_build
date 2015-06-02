@@ -62,7 +62,8 @@ SceneGame::SceneGame(Game* game){
 
 	// Player will always be initalized at the start of the game
 
-	player = new Player(TextureManager::instance()->getRef("playerSprite"),
+	player = new Player(TextureManager::instance()->getRef("playerAnimate"),
+		sf::IntRect(0,0,60,32),
 		1, 8, false, 3);
 	player->setPosition(sf::Vector2f(100, 200));
 	player->setWeapon(new Weapon());
@@ -132,11 +133,11 @@ void SceneGame::update(float dt){
 
 	if (!boss_summoned){
 		makeTerrain();
-		makePickup();
 		spawnTimer();
 		boss_ticks++;
 		summonBoss();
 	}
+	makePickup();
 
 	for (auto spawn : spawner_list){
 		spawn->setSpawnLocation(game->window.mapPixelToCoords(spawn->getWindowCoords()));
@@ -670,35 +671,44 @@ void SceneGame::makePickup(){
 
 		std::vector<BulletTemplate*> player_weapon;
 		Weapon* pickup_weapon = nullptr;
+		Pickup* powItem = nullptr;
+
+		sf::Vector2f window_spawn = game->window.mapPixelToCoords(
+			sf::Vector2i(game->window.getSize().x, game->window.getSize().y));
 
 		if (weapon_choose == 0){
 			// single shot
 			player_weapon.push_back(new BulletTemplate("bulletPlayer",1,15,false,0));
 			pickup_weapon = new Weapon(player_weapon, "single", 60);
+			powItem = new Pickup(this, "pickup1", sf::Vector2f(window_spawn.x + 50, 300), pickup_weapon);
 		}
 		else if (weapon_choose == 1){
 			// tail shot
 			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, 0));
 			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, 180));
 			pickup_weapon = new Weapon(player_weapon, "single", 60);
+			powItem = new Pickup(this, "pickupHorizontal", sf::Vector2f(window_spawn.x + 50, 300), pickup_weapon);
 		}
 		else if (weapon_choose == 2){
 			// Back double
 			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, 190));
 			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, 170));
 			pickup_weapon = new Weapon(player_weapon, "single", 60);
+			powItem = new Pickup(this, "pickup2Back", sf::Vector2f(window_spawn.x + 50, 300), pickup_weapon);
 		}
 		else if (weapon_choose == 3){
 			// Front double
 			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, 10));
 			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, -10));
 			pickup_weapon = new Weapon(player_weapon, "single", 60);
+			powItem = new Pickup(this, "pickup2Front", sf::Vector2f(window_spawn.x + 50, 300), pickup_weapon);
 		}
 		else if (weapon_choose == 4){
 			// vertical shot
 			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, 90));
 			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, 270));
 			pickup_weapon = new Weapon(player_weapon, "single", 60);
+			powItem = new Pickup(this, "pickupVertical", sf::Vector2f(window_spawn.x + 50, 300), pickup_weapon);
 		}
 		else if (weapon_choose == 5){
 			// Front Triple
@@ -706,10 +716,8 @@ void SceneGame::makePickup(){
 			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 20, false, 15));
 			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 20, false, -15));
 			pickup_weapon = new Weapon(player_weapon, "single", 60);
+			powItem = new Pickup(this, "pickup3Front", sf::Vector2f(window_spawn.x + 50, 300), pickup_weapon);
 		}
-		sf::Vector2f window_spawn = game->window.mapPixelToCoords(
-			sf::Vector2i(game->window.getSize().x, game->window.getSize().y));
-		Pickup* powItem = new Pickup(this,"pickup", sf::Vector2f(window_spawn.x + 50, 300),pickup_weapon);
 		this->addEntity(powItem);
 
 	}

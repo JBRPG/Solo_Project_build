@@ -110,6 +110,15 @@ public:
 		this->setPosition(pos);
 	};
 
+	Entity(SceneGame* scene, std::string tex, const sf::IntRect& rect, int hp, float speed, bool invincible,
+		sf::Vector2f pos, Weapon* weapon) :
+		myScene(scene), health(hp), speed(speed), invincible(invincible), myWeapon(weapon),
+		Sprite(TextureManager::instance()->getRef(tex), rect)
+	{
+		setOrigin(this->getGlobalBounds().width / 2, this->getGlobalBounds().height / 2);
+		this->setPosition(pos);
+	};
+
 	// for bullet
 	Entity(SceneGame* scene, std::string tex, int hp, float speed, bool invincible,
 		sf::Vector2f pos) :
