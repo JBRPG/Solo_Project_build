@@ -4,6 +4,8 @@
 #include "enemyTerrain.hpp"
 #include "terrain.hpp"
 
+#include "player.hpp" // used for chase functions
+
 
 // constructors
 
@@ -93,6 +95,7 @@ void Movement::lookupMovement(Entity& entity, std::string name){
 		{"circle", &Movement::circle},
 		{ "sine", &Movement::sinusodial },
 		{ "bounds", &Movement::bounds },
+		{ "bounds_chase", &Movement::bounds_chase },
 		{ "walk", &Movement::walk },
 		{ "stay", &Movement::stay }
 	};
@@ -141,6 +144,14 @@ void Movement::setMoveAngle(){
 	point_difference.y = next_waypoint.y - curr_waypoint.y;
 
 	move_angle = atan2f (point_difference.y, point_difference.x);
+}
+
+void Movement::setMoveAngle(float &_move_angle){
+	sf::Vector2f point_difference;
+	point_difference.x = next_waypoint.x - curr_waypoint.x;
+	point_difference.y = next_waypoint.y - curr_waypoint.y;
+
+	_move_angle = atan2f(point_difference.y, point_difference.x);
 }
 
 
@@ -287,6 +298,129 @@ void Movement::bounds(Entity& entity, sf::Vector2f vertex, std::vector<float> pa
 
 }
 
+
+void Movement::bounds_chase(Entity& entity, sf::Vector2f vertex, std::vector<float> params){
+	if (params.size() != 3){
+		std::cerr << "Need three float values for sine: " <<
+			"angle(0), bound_type[0-2](1), and chase delay(2)" << std::endl;
+		return;
+	}
+	chase_time_set = params[2];
+	set_chase_mode(entity);
+	if (is_chasing){
+		chase_mode(entity);
+		return;
+	}
+
+
+	float angle_x;
+	float angle_y;
+
+	float pi = 3.14;
+	float deg_to_rad = pi / 180;
+
+	// Now first calculate the current components (X and Y)
+
+	angle_x = cos(params[0] * deg_to_rad);
+	angle_y = sin(params[0] * deg_to_rad);
+
+	// keep moving entity from going out of bounds
+	sf::Vector2f tl_window_view = entity.getScene()->game->window.mapPixelToCoords(
+		sf::Vector2i(0, 0));
+	sf::Vector2f br_window_view = entity.getScene()->game->window.mapPixelToCoords(
+		sf::Vector2i(entity.getScene()->game->window.getSize().x,
+		entity.getScene()->game->window.getSize().y));
+
+	// then change values of the compnents through bound check
+	if (params[1] == 0 || params[1] == 2){
+		if (entity.getGlobalBounds().left < tl_window_view.x){
+			entity.setPosition(tl_window_view.x + entity.getGlobalBounds().width / 2,
+				entity.getPosition().y);
+			angle_x = angle_x > 0 ? angle_x * -1 : angle_x;
+		}
+		if (entity.getPosition().x >= br_window_view.x
+			- entity.getGlobalBounds().width / 2){
+			entity.setPosition(br_window_view.x - entity.getGlobalBounds().width / 2,
+				entity.getPosition().y);
+			angle_x = angle_x < 0 ? angle_x * -1 : angle_x;
+		}
+	}
+	if (params[1] == 1 || params[1] == 2){
+		if (entity.getGlobalBounds().top < tl_window_view.y){
+			entity.setPosition(entity.getPosition().x,
+				tl_window_view.y + entity.getGlobalBounds().height / 2);
+			angle_y = angle_y < 0 ? angle_y * -1 : angle_y;
+		}
+		if (entity.getPosition().y >= br_window_view.y
+			- entity.getGlobalBounds().height / 2){
+			entity.setPosition(entity.getPosition().x,
+				br_window_view.y - entity.getGlobalBounds().height / 2);
+			angle_y = angle_y > 0 ? angle_y * -1 : angle_y;
+		}
+	}
+
+	// then update the angle with changed compounds
+	// and convert back to degrees
+
+	float deg_angle = atan2f(angle_y, angle_x) * (1 / deg_to_rad);
+
+	params[0] = deg_angle;
+	args[0] = params[0];
+
+
+	entity.move(entity.getSpeed() * cos(params[0] * deg_to_rad),
+		entity.getSpeed() * sin(params[0] * deg_to_rad));
+
+
+
+
+}
+
+void Movement::chase_mode(Entity& entity){
+
+	if (entity.getGlobalBounds().contains(next_waypoint)){
+		curr_waypoint = next_waypoint;
+		next_waypoint = 
+			 ++waypoint_idx < chase_waypoints.size() ? chase_waypoints[waypoint_idx]: sf::Vector2f(0,0);
+		setMoveAngle(chase_angle);
+	}
+
+	if (waypoint_idx >= chase_waypoints.size()){
+		is_chasing = false;
+		chase_time_delay = 0;
+		chase_waypoints.clear();
+		return;
+	}
+
+	entity.move(entity.getSpeed() * cos(chase_angle),
+		entity.getSpeed() * sin(chase_angle));
+}
+
+void Movement::set_chase_mode(Entity& entity){
+	chase_time_delay++;
+	if (!is_chasing && chase_time_delay % chase_time_set == 0){
+		is_chasing = true;
+
+		// get the window position for the last waypoint:
+
+		sf::Vector2f window_bounds = entity.getScene()->game->window.mapPixelToCoords(
+			sf::Vector2i(entity.getScene()->game->window.getSize()));
+		sf::Vector2f window_corners = entity.getScene()->game->window.mapPixelToCoords(
+			sf::Vector2i(0,0));
+
+		// Set up the waypoints and angle so enemy can target the player and back
+		chase_waypoints.push_back(sf::Vector2f(window_corners.x + entity.getGlobalBounds().width,
+			                      entity.getPosition().y));
+		chase_waypoints.push_back(sf::Vector2f(window_bounds.x + entity.getGlobalBounds().width,
+			                      entity.getPosition().y));
+
+		curr_waypoint = sf::Vector2f(entity.getPosition().x, entity.getPosition().y);
+		next_waypoint = chase_waypoints[0];
+		waypoint_idx = 0;
+
+		setMoveAngle(chase_angle);
+	}
+}
 
 // This behavior is exclusive for terrain enemy
 void Movement::walk(Entity& entity, sf::Vector2f vertex, std::vector<float> params){

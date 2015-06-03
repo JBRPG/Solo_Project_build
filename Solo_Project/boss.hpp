@@ -40,6 +40,7 @@ class Boss : public Enemy{
 		// variables
 		int phase = 0;
 		std::vector<int> boss_phase_hp; // less health at higher indexes
+		bool final_phase = false;
 		std::vector<Weapon*> weapons;
 		std::string boss_name;
 
@@ -51,6 +52,7 @@ class Boss : public Enemy{
 
 		void checkPhase();
 		void destroyBoss();
+		void death_burst();
 
 
 

@@ -85,6 +85,18 @@ private:
 	sf::Vector2f curr_waypoint, next_waypoint;
 	float move_angle;
 
+	std::vector<sf::Vector2f> chase_waypoints; // used for exclusive move behavior
+	int chase_time_set;
+	int chase_time_delay;
+	bool is_chasing = false;
+	float chase_angle; // shall be used during chase mode, adjusted 
+
+	// functions
+
+	void chase_mode(Entity&);
+	void set_chase_mode(Entity&);
+
+
 public:
 
 	// Constructor
@@ -165,6 +177,7 @@ public:
 	void lookupMovement(Entity&, std::vector<sf::Vector2f>);
 
 	void setMoveAngle();
+	void setMoveAngle(float&);
 
 	// Functions used to define specific movements for entities
 	// Will be used for function lookup table
@@ -180,6 +193,7 @@ public:
 	void straight(Entity&, sf::Vector2f, std::vector<float>);
 	void sinusodial(Entity&, sf::Vector2f, std::vector<float>);
 	void bounds(Entity&, sf::Vector2f, std::vector<float>);
+	void bounds_chase(Entity&, sf::Vector2f, std::vector<float>);
 
 	// land enemies only
 	void walk(Entity&, sf::Vector2f, std::vector<float>);

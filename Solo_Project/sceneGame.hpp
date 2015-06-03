@@ -162,4 +162,6 @@ public:
 	void bossDefeated();
 	void summonBoss();
 
+	Player* getPlayer();
+
 };

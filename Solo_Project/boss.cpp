@@ -84,7 +84,7 @@ void Boss::destroyBoss(){
 		this->getPosition().y);
 
 	myScene->addEntity(explode); // you have to actually add the entity because
-	// storeAdded list has already been checked during update
+	death_burst();
 }
 
 void Boss::checkPhase(){
@@ -94,5 +94,44 @@ void Boss::checkPhase(){
 		delete myWeapon;
 		myWeapon = new Weapon(*weapons[phase]);
 
+	}
+	if (!final_phase && phase == boss_phase_hp.size() - 1){
+		final_phase = true;
+		Movement* final_move = new Movement("bounds_chase", getPosition(), { 90, 1, 60 });
+		delete myMovement;
+		myMovement = final_move;
+	}
+}
+
+
+// create suicide bullets
+void Boss::death_burst(){
+	std::vector<Bullet*> bullets;
+	bullets.push_back(new Bullet(myScene, "bulletEnemy", 1, 8, false, getPosition(), true, 0));
+	bullets.push_back(new Bullet(myScene, "bulletEnemy", 1, 8, false, getPosition(), true, 60));
+	bullets.push_back(new Bullet(myScene, "bulletEnemy", 1, 8, false, getPosition(), true, 120));
+	bullets.push_back(new Bullet(myScene, "bulletEnemy", 1, 8, false, getPosition(), true, 180));
+	bullets.push_back(new Bullet(myScene, "bulletEnemy", 1, 8, false, getPosition(), true, 240));
+	bullets.push_back(new Bullet(myScene, "bulletEnemy", 1, 8, false, getPosition(), true, 300));
+	bullets.push_back(new Bullet(myScene, "bulletEnemy", 1, 8, false, getPosition(), true, 30));
+	bullets.push_back(new Bullet(myScene, "bulletEnemy", 1, 8, false, getPosition(), true, 90));
+	bullets.push_back(new Bullet(myScene, "bulletEnemy", 1, 8, false, getPosition(), true, 150));
+	bullets.push_back(new Bullet(myScene, "bulletEnemy", 1, 8, false, getPosition(), true, 210));
+	bullets.push_back(new Bullet(myScene, "bulletEnemy", 1, 8, false, getPosition(), true, 270));
+	bullets.push_back(new Bullet(myScene, "bulletEnemy", 1, 8, false, getPosition(), true, 330));
+	bullets.push_back(new Bullet(myScene, "bulletEnemy", 1, 8, false, getPosition(), true, 15));
+	bullets.push_back(new Bullet(myScene, "bulletEnemy", 1, 8, false, getPosition(), true, 45));
+	bullets.push_back(new Bullet(myScene, "bulletEnemy", 1, 8, false, getPosition(), true, 75));
+	bullets.push_back(new Bullet(myScene, "bulletEnemy", 1, 8, false, getPosition(), true, 105));
+	bullets.push_back(new Bullet(myScene, "bulletEnemy", 1, 8, false, getPosition(), true, 135));
+	bullets.push_back(new Bullet(myScene, "bulletEnemy", 1, 8, false, getPosition(), true, 165));
+	bullets.push_back(new Bullet(myScene, "bulletEnemy", 1, 8, false, getPosition(), true, 195));
+	bullets.push_back(new Bullet(myScene, "bulletEnemy", 1, 8, false, getPosition(), true, 225));
+	bullets.push_back(new Bullet(myScene, "bulletEnemy", 1, 8, false, getPosition(), true, 255));
+	bullets.push_back(new Bullet(myScene, "bulletEnemy", 1, 8, false, getPosition(), true, 285));
+	bullets.push_back(new Bullet(myScene, "bulletEnemy", 1, 8, false, getPosition(), true, 315));
+	bullets.push_back(new Bullet(myScene, "bulletEnemy", 1, 8, false, getPosition(), true, 345));
+	for (auto bullet : bullets){
+		myScene->addEntity(bullet);
 	}
 }

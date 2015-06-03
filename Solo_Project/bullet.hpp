@@ -38,6 +38,9 @@ public:
 		Entity(tex, rect, hp, speed, invincibility)
 	{};
 
+	Bullet(SceneGame*, std::string, int, float, bool, sf::Vector2f);
+	Bullet(SceneGame*, std::string, int, float, bool, sf::Vector2f, bool, float);
+
 
 
 	// member functions

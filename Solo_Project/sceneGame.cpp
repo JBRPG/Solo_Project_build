@@ -1077,6 +1077,10 @@ void SceneGame::gameOverCountdown(){
 	}
 }
 
+Player* SceneGame::getPlayer(){
+	return player;
+}
+
 void SceneGame::playerKilled(){
 	player_dead = true;
 	playSound("player_destroyed");

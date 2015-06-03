@@ -30,7 +30,7 @@ void Player::collideWith(Entity& other){
 	if (Enemy* enemy = dynamic_cast<Enemy*>(&other)){
 		// Take damage from enemy
 		// unless invincible
-		--this->health;
+		if (!invincible)--this->health;
 	}
 	// Check if the entity is Bullet
 	else if (Bullet* bullet = dynamic_cast<Bullet*>(&other)){
@@ -38,7 +38,8 @@ void Player::collideWith(Entity& other){
 
 		// Take damage from bullet,
 		// unless invincible
-		--this->health;
+
+		if (!invincible)--this->health;
 	}
 	else if (Pickup* pickup = dynamic_cast<Pickup*> (&other)){
 		myScene->playSound("weapon_get");
@@ -48,7 +49,7 @@ void Player::collideWith(Entity& other){
 
 
 	else if (Terrain* land = dynamic_cast<Terrain*> (&other)){
-		health = 0;
+		if (!invincible)health = 0;
 	}
 }
 

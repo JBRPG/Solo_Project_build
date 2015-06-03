@@ -3,6 +3,22 @@
 #include "terrain.hpp"
 
 
+
+Bullet::Bullet(SceneGame* scene, std::string tex,
+	int hp, float _speed, bool _invinc, sf::Vector2f pos):
+	Entity(scene, tex, hp, _speed, _invinc, pos)
+{
+
+}
+
+Bullet::Bullet(SceneGame* scene, std::string tex,
+	int hp, float _speed, bool _invinc, sf::Vector2f pos,
+	bool _shot_enemy, float rot) :
+	Entity(scene, tex, hp, _speed, _invinc, pos),
+	enemyShot(_shot_enemy), rotation(rot)
+{
+
+}
 /*
 For all entity comparisons, we will use dynamic_cast
 with the reference to Entity object - Entity& other
