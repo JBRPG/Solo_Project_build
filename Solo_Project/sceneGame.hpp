@@ -43,6 +43,7 @@ private:
 	std::vector <sf::Sprite*> stars;
 
 	std::vector<sf::Sound*> sound_list;
+	sf::Music* gameMusic;
 
 	Player* player;
 	bool player_dead = false;

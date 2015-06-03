@@ -38,6 +38,12 @@ SceneGame::SceneGame(Game* game){
 	fpsDisplay.setPosition(50, 0);
 	score.setPosition(500, 0);
 
+	// load music
+	gameMusic = new sf::Music();
+	gameMusic->openFromFile("media/sounds/battle_music.ogg");
+	gameMusic->setLoop(true);
+	gameMusic->play();
+
 	// Set up the view layers
 
 	sf::Vector2f pos = sf::Vector2f(this->game->window.getSize());
@@ -1060,6 +1066,8 @@ void SceneGame::gameOver(){
 	}
 	sound_list.clear();
 
+	delete gameMusic;
+
 	game->setMultiplier(1);
 	game->setHiScore();
 	game->setScore(0);
@@ -1083,17 +1091,24 @@ Player* SceneGame::getPlayer(){
 
 void SceneGame::playerKilled(){
 	player_dead = true;
+	gameMusic->stop();
 	playSound("player_destroyed");
 }
 
 void SceneGame::bossDefeated(){
 	boss_summoned = false;
+	gameMusic->openFromFile("media/sounds/battle_music.ogg");
+	gameMusic->setLoop(true);
+	gameMusic->play();
 	boss_ticks ++;
 }
 
 void SceneGame::summonBoss(){
 	if (boss_ticks % boss_period == boss_period - 1 && !boss_summoned){
 		boss_summoned = true;
+		gameMusic->openFromFile("media/sounds/boss_music.ogg");
+		gameMusic->setLoop(true);
+		gameMusic->play();
 		makeBoss();
 	}
 }
