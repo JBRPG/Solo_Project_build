@@ -1,5 +1,6 @@
 #include "weapon.hpp"
 
+#include "bullet.hpp"
 
 /*
   Construct a weapon by having a vector of bullets with a given keyword
@@ -14,7 +15,7 @@ Weapon::Weapon():
 keyword("single"), shootCooldownSet(120)
 {
 	std::vector<BulletTemplate*> bullets;
-	bullets.push_back(new BulletTemplate("bulletPlayer",1, 15, false, 0));
+	bullets.push_back(new BulletTemplate("bulletPlayer",1, 30, false, 0));
 	bullet_list = bullets;
 }
 
@@ -217,10 +218,9 @@ void Weapon::singleShot(Entity& shooter){
 	if (Player* player = dynamic_cast<Player*> (&shooter)){
 		if (Input::instance()->pressKeybutton(sf::Keyboard::Space)){
 
-			if (shootCooldownTime == 0 && shot_count < shot_limit){
+			if (shootCooldownTime == 0){
 				shooter.getScene()->playSound("player_shot");
 				shootBullets(shooter);
-				shot_count++;
 				shootCooldownTime = shootCooldownSet;
 			}
 
@@ -230,10 +230,6 @@ void Weapon::singleShot(Entity& shooter){
 		}
 		else {
 			shootCooldownTime = 0;
-		}
-
-		if (shooter.getTicks() % 30 == 0){
-			shot_count = shot_count > 0? shot_count - 1: 0;
 		}
 		
 	}
@@ -368,4 +364,16 @@ void Weapon::sequenceMultiEnemy(Entity& shooter){
 
 std::string Weapon::getKeyword(){
 	return keyword;
+}
+
+int Weapon::getShotLimit(){
+	return shot_limit;
+}
+
+void Weapon::setShotLimit(int limit){
+	shot_limit = limit;
+}
+
+void Weapon::reduceShotCount(int reduce){
+	shot_count = shot_count > 0 ? shot_count - reduce : 0;
 }

@@ -19,6 +19,9 @@ Bullet::Bullet(SceneGame* scene, std::string tex,
 {
 
 }
+
+Bullet::~Bullet(){
+}
 /*
 For all entity comparisons, we will use dynamic_cast
 with the reference to Entity object - Entity& other
@@ -68,6 +71,14 @@ void Bullet::update(float dt){
 		       speed * sin(rotation * deg_to_rad));
 
 
+}
+
+Weapon* Bullet::getFiredFrom(){
+	return firedFrom;
+}
+
+void Bullet::setFiredFrom(Weapon* weapon_p){
+	firedFrom = weapon_p;
 }
 
 // bullet template section

@@ -9,6 +9,10 @@
 
 #include "sceneGame.hpp"
 
+// forward declaration
+
+class Weapon;
+
 
 class Bullet : public Entity{
 
@@ -20,6 +24,7 @@ private:
 
 	bool enemyShot; // if false, then player shot bullet
 	float rotation;
+	Weapon* firedFrom;
 
 
 public:
@@ -41,6 +46,7 @@ public:
 	Bullet(SceneGame*, std::string, int, float, bool, sf::Vector2f);
 	Bullet(SceneGame*, std::string, int, float, bool, sf::Vector2f, bool, float);
 
+	~Bullet();
 
 
 	// member functions
@@ -52,6 +58,9 @@ public:
 	void collideWith(Entity&);
 	void update (float dt);
 	int getTicks() { return ticks; };
+
+	Weapon* getFiredFrom();
+	void setFiredFrom(Weapon*);
 
 	// I want the bullet to have dynamic movement
 	// and will be implemented later

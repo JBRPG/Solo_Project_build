@@ -5,7 +5,6 @@
 #include <functional>
 #include <iostream>
 
-#include "bullet.hpp"
 #include "sceneGame.hpp"
 #include "input.hpp"
 #include "textureManager.hpp"
@@ -113,6 +112,10 @@ public:
 	void singleShot(Entity&);
 
 	std::string getKeyword();
+
+	void setShotLimit(int);
+	int getShotLimit();
+	void reduceShotCount(int);
 
 };
 

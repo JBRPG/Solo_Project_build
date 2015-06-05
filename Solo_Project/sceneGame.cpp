@@ -446,12 +446,13 @@ Spawner* SceneGame::makeSpawner(){
 
 	Movement* enemy_movement = makeMovement(window_to_map_spawn);
 
-	int spawn_amount = rand() % difficulty + 1;
+	int spawn_amount = rand() % 2 + 1 + (2 * difficulty);
+	int enemy_delay = 30 - (2 * difficulty);
 
 	newSpawn = new Spawner(
 		new Weapon(*enemy_weapon),
 		new Movement(*enemy_movement),
-		makeEnemy(enemy_movement, enemy_weapon), {30, spawn_amount}, spawn_window_coords);
+		makeEnemy(enemy_movement, enemy_weapon), {enemy_delay, spawn_amount}, spawn_window_coords);
 
 
 	return newSpawn;
@@ -570,31 +571,33 @@ EnemyTemplate* SceneGame::makeEnemy(Movement* movement, Weapon* weapon){
 
 	EnemyTemplate* new_Enemy = nullptr;
 
+	float enemy_speed = 10 + (2 * difficulty);
+
 	// determine the enemy graphic based on weapon type
 	if (weapon->getKeyword() == "single"){
 
 
-		new_Enemy = new EnemyTemplate(this, "enemySprite",1,8,false,movement->getVertex());
+		new_Enemy = new EnemyTemplate(this, "enemySprite",1,enemy_speed,false,movement->getVertex());
 
 	}
 
 	else if (weapon->getKeyword() == "rapid_enemy"){
 
 
-		new_Enemy = new EnemyTemplate(this, "enemy0Sprite", 1, 8, false, movement->getVertex());
+		new_Enemy = new EnemyTemplate(this, "enemy0Sprite", 1, enemy_speed, false, movement->getVertex());
 
 	}
 
 	else if (weapon->getKeyword() == "sequence_enemy"){
 
 
-		new_Enemy = new EnemyTemplate(this, "enemy2Sprite", 1, 8, false, movement->getVertex());
+		new_Enemy = new EnemyTemplate(this, "enemy2Sprite", 1, enemy_speed, false, movement->getVertex());
 
 	}
 	else if (weapon->getKeyword() == "sequence_multi_enemy"){
 
 
-		new_Enemy = new EnemyTemplate(this, "enemy1Sprite", 1, 8, false, movement->getVertex());
+		new_Enemy = new EnemyTemplate(this, "enemy1Sprite", 1, enemy_speed, false, movement->getVertex());
 
 	}
 
@@ -684,43 +687,43 @@ void SceneGame::makePickup(){
 
 		if (weapon_choose == 0){
 			// single shot
-			player_weapon.push_back(new BulletTemplate("bulletPlayer",1,15,false,0));
+			player_weapon.push_back(new BulletTemplate("bulletPlayer",1,30,false,0));
 			pickup_weapon = new Weapon(player_weapon, "single", 60);
 			powItem = new Pickup(this, "pickup1", sf::Vector2f(window_spawn.x + 50, 300), pickup_weapon);
 		}
 		else if (weapon_choose == 1){
 			// tail shot
-			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, 0));
-			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, 180));
+			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 30, false, 0));
+			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 30, false, 180));
 			pickup_weapon = new Weapon(player_weapon, "single", 60);
 			powItem = new Pickup(this, "pickupHorizontal", sf::Vector2f(window_spawn.x + 50, 300), pickup_weapon);
 		}
 		else if (weapon_choose == 2){
 			// Back double
-			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, 190));
-			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, 170));
+			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 30, false, 190));
+			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 30, false, 170));
 			pickup_weapon = new Weapon(player_weapon, "single", 60);
 			powItem = new Pickup(this, "pickup2Back", sf::Vector2f(window_spawn.x + 50, 300), pickup_weapon);
 		}
 		else if (weapon_choose == 3){
 			// Front double
-			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, 10));
-			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, -10));
+			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 30, false, 10));
+			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 30, false, -10));
 			pickup_weapon = new Weapon(player_weapon, "single", 60);
 			powItem = new Pickup(this, "pickup2Front", sf::Vector2f(window_spawn.x + 50, 300), pickup_weapon);
 		}
 		else if (weapon_choose == 4){
 			// vertical shot
-			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, 90));
-			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 15, false, 270));
+			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 30, false, 90));
+			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 30, false, 270));
 			pickup_weapon = new Weapon(player_weapon, "single", 60);
 			powItem = new Pickup(this, "pickupVertical", sf::Vector2f(window_spawn.x + 50, 300), pickup_weapon);
 		}
 		else if (weapon_choose == 5){
 			// Front Triple
-			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 20, false, 0));
-			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 20, false, 15));
-			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 20, false, -15));
+			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 40, false, 0));
+			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 40, false, 15));
+			player_weapon.push_back(new BulletTemplate("bulletPlayer", 1, 40, false, -15));
 			pickup_weapon = new Weapon(player_weapon, "single", 60);
 			powItem = new Pickup(this, "pickup3Front", sf::Vector2f(window_spawn.x + 50, 300), pickup_weapon);
 		}
@@ -734,26 +737,28 @@ Weapon* SceneGame::setup_bullets(std::string& word, std::vector<BulletTemplate*>
 
 	Weapon* new_weapon = nullptr;
 
+	int delay_reduce = 4 * difficulty;
+
 	if (word == "rapid_enemy"){
 		if (difficulty == 1){
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
-			new_weapon = new Weapon(_bullets, word, 60, { 6, 12 });
+			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce, { 6, 12 });
 		}
 		else if (difficulty == 2){
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 5));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -5));
-			new_weapon = new Weapon(_bullets, word, 60, { 6, 12 });
+			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce, { 6, 12 });
 		}
 		else if (difficulty == 3){
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 180));
-			new_weapon = new Weapon(_bullets, word, 60, { 6, 12 });
+			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce, { 6, 12 });
 		}
 		else if (difficulty == 4){
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 30));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -30));
-			new_weapon = new Weapon(_bullets, word, 60, { 6, 12 });
+			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce, { 6, 12 });
 		}
 		else if (difficulty == 5){
 
@@ -761,27 +766,27 @@ Weapon* SceneGame::setup_bullets(std::string& word, std::vector<BulletTemplate*>
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 90));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 180));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 270));
-			new_weapon = new Weapon(_bullets, word, 60, { 6, 12 });
+			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce, { 6, 12 });
 		}
 	}
 	else if (word == "sequence_enemy"){
 		if (difficulty == 1){
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 5));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -5));
-			new_weapon = new Weapon(_bullets, word, 60, { 12 });
+			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce, { 12 });
 		}
 		else if (difficulty == 2){
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 10));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -10));
-			new_weapon = new Weapon(_bullets, word, 60, { 12 });
+			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce, { 12 });
 		}
 		else if (difficulty == 3){
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 15));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -15));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
-			new_weapon = new Weapon(_bullets, word, 60, { 12 });
+			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce, { 12 });
 		}
 		else if (difficulty == 4){
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -10));
@@ -789,7 +794,7 @@ Weapon* SceneGame::setup_bullets(std::string& word, std::vector<BulletTemplate*>
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 5));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 10));
-			new_weapon = new Weapon(_bullets, word, 60, { 12 });
+			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce, { 12 });
 		}
 		else if (difficulty == 5){
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
@@ -800,7 +805,7 @@ Weapon* SceneGame::setup_bullets(std::string& word, std::vector<BulletTemplate*>
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 135));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 225));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 180));
-			new_weapon = new Weapon(_bullets, word, 60, { 12 });
+			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce, { 12 });
 		}
 	}
 	else if (word == "sequence_multi_enemy"){
@@ -808,14 +813,14 @@ Weapon* SceneGame::setup_bullets(std::string& word, std::vector<BulletTemplate*>
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -5));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 5));
-			new_weapon = new Weapon(_bullets, word, 30, { 20, 2 });
+			new_weapon = new Weapon(_bullets, word, 30 - (delay_reduce / 2), { 20, 2 });
 		}
 		else if (difficulty == 2){
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 180));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 90));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 270));
-			new_weapon = new Weapon(_bullets, word, 30, { 20, 2 });
+			new_weapon = new Weapon(_bullets, word, 30 - (delay_reduce / 2), { 20, 2 });
 		}
 		else if (difficulty == 3){
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
@@ -824,7 +829,7 @@ Weapon* SceneGame::setup_bullets(std::string& word, std::vector<BulletTemplate*>
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 180));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 195));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
-			new_weapon = new Weapon(_bullets, word, 30, { 20, 3 });
+			new_weapon = new Weapon(_bullets, word, 30 - (delay_reduce / 2), { 20, 3 });
 		}
 		else if (difficulty == 4){
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
@@ -835,7 +840,7 @@ Weapon* SceneGame::setup_bullets(std::string& word, std::vector<BulletTemplate*>
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -45));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 225));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 135));
-			new_weapon = new Weapon(_bullets, word, 30, { 20, 2 });
+			new_weapon = new Weapon(_bullets, word, 30 - (delay_reduce / 2), { 20, 2 });
 		}
 		else if (difficulty == 5){
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 5));
@@ -846,31 +851,31 @@ Weapon* SceneGame::setup_bullets(std::string& word, std::vector<BulletTemplate*>
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 95));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 265));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 275));
-			new_weapon = new Weapon(_bullets, word, 30, { 20, 4 });
+			new_weapon = new Weapon(_bullets, word, 30 - (delay_reduce / 2), { 20, 4 });
 		}
 	}
 	else if (word == "single"){
 		if (difficulty == 1){
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
-			new_weapon = new Weapon(_bullets, word, 60);
+			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce);
 		}
 		else if (difficulty == 2){
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 5));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -5));
-			new_weapon = new Weapon(_bullets, word, 60);
+			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce);
 		}
 		else if (difficulty == 3){
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 30));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -30));
-			new_weapon = new Weapon(_bullets, word, 60);
+			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce);
 		}
 		else if (difficulty == 4){
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 90));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 180));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 270));
-			new_weapon = new Weapon(_bullets, word, 60);
+			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce);
 		}
 		else if (difficulty == 5){
 
@@ -879,7 +884,7 @@ Weapon* SceneGame::setup_bullets(std::string& word, std::vector<BulletTemplate*>
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 90));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -45));
 			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -90));
-			new_weapon = new Weapon(_bullets, word, 60);
+			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce);
 		}
 	}
 
@@ -997,11 +1002,17 @@ void SceneGame::makeWaypoints(){
 }
 
 void SceneGame::checkDifficulty(){
+
+	// this will be reformatted to consider the difficulty flow
+	// of enemy waves
+
+
 	int difficultyPeriod = 600;
 	int difficultyMax = 5;
 
 	if (scene_ticks % difficultyPeriod == 0 && difficulty < difficultyMax){
 		difficulty++;
+		spawn_time = spawn_default - (6 * difficulty);
 	}
 
 
@@ -1097,6 +1108,8 @@ void SceneGame::playerKilled(){
 
 void SceneGame::bossDefeated(){
 	boss_summoned = false;
+	difficulty -= 2;
+	difficulty = difficulty > 1 ? difficulty: 1;
 	gameMusic->openFromFile("media/sounds/battle_music.ogg");
 	gameMusic->setLoop(true);
 	gameMusic->play();
