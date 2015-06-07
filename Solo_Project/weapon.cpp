@@ -1,6 +1,7 @@
 #include "weapon.hpp"
 
 #include "bullet.hpp"
+#include "particle_animated.hpp"
 
 /*
   Construct a weapon by having a vector of bullets with a given keyword
@@ -49,6 +50,38 @@ bullet_list(bullets), keyword(key_name), shootCooldownSet(delay)
 		exit(1);
 }
 
+Weapon::Weapon(std::vector <BulletTemplate*> bullets, std::string key_name, int delay, std::vector<int> key_params, std::string charge) :
+bullet_list(bullets), keyword(key_name), shootCooldownSet(delay), str_charge(charge)
+{
+	// If none of the other keywords match, the program will close
+
+	if (keyword == "rapid_player" || keyword == "rapid_enemy"){
+		rapidWaitSet = key_params[0];
+		rapidDurationSet = key_params[1];
+	}
+
+	else if (keyword == "hold_player"){
+		holdDurationSet = key_params[0];
+	}
+
+	else if (keyword == "sequence_enemy"){
+		sequenceDelaySet = key_params[0];
+	}
+
+	else if (keyword == "sequence_multi_enemy"){
+		sequenceDelaySet = key_params[0];
+		bullets_fired = key_params[1];
+	}
+	else{
+		exit(1);
+	}
+
+	// Because its finals week and I have to quickly implement the charging animation
+	// only one is used
+	shot_charging = new AnimatedParticle(TextureManager::instance()->getRef(charge),
+		sf::IntRect(0, 0, 64, 64), 6);
+}
+
 Weapon::Weapon(std::vector <BulletTemplate*> bullets, std::string key_name, int delay) :
 bullet_list(bullets), keyword(key_name), shootCooldownSet(delay)
 {
@@ -71,6 +104,7 @@ Weapon::Weapon(const Weapon& source){
 	keyword = source.keyword; 
 	enemydidShoot = source.enemydidShoot;
 	bullets_fired = source.bullets_fired;
+	str_charge = source.str_charge;
 
 	for (auto bullet : source.bullet_list){
 		bullet_list.push_back(new BulletTemplate(*bullet));
@@ -102,6 +136,7 @@ Weapon& Weapon::operator=(const Weapon& source){
 	spawnTime = source.spawnTime;
 	keyword = source.keyword;
 	enemydidShoot = source.enemydidShoot;
+	str_charge = source.str_charge;
 
 	//bullet_list = source.bullet_list;
 
@@ -116,12 +151,17 @@ Weapon& Weapon::operator=(const Weapon& source){
 
 Weapon::~Weapon(){
 	for (BulletTemplate* bullet : bullet_list){
-		delete bullet;
+ 		delete bullet;
+	}
+
+   	if (shot_charging != nullptr){
+		shot_charging->getScene()->storeRemovedEntity(shot_charging);
 	}
 }
 
 void Weapon::update(Entity& shooter){
 
+	chargeShot(shooter);
 	lookupShoot(shooter, this->keyword);
 
 }
@@ -376,4 +416,27 @@ void Weapon::setShotLimit(int limit){
 
 void Weapon::reduceShotCount(int reduce){
 	shot_count = shot_count > 0 ? shot_count - reduce : 0;
+}
+
+void Weapon::chargeShot(Entity& shooter){
+	if (shot_charging == nullptr) return;
+
+	if (!charge_listed){
+ 		shooter.getScene()->addEntity(shot_charging);
+		charge_listed = true;
+	}
+
+	if (shootCooldownTime == 0){
+		shot_charging->setColor(sf::Color(0, 0, 0, 0));
+	}
+	else {
+
+		shot_charging->setColor(sf::Color(255, 255, 255, 255));
+	}
+
+	// Since I am rushing this finals week to get the charging beam animation
+	// I can only assume it to be placed for the enemy, placed at leftmost edge
+	shot_charging->setPosition(shooter.getPosition().x -
+							  (shooter.getGlobalBounds().width / 2),
+		                       shooter.getPosition().y);
 }

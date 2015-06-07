@@ -18,6 +18,7 @@
 #include "terrain.hpp"
 #include "enemyTerrain.hpp"
 #include "boss.hpp"
+#include "particle_animated.hpp"
 
 
 SceneGame::SceneGame(Game* game){
@@ -981,6 +982,10 @@ void SceneGame::makeBoss(){
 	bullets_list[1].push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -20));
 	bullets_list[1].push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -30));
 
+	// Wide Beam
+	bullets_list[2].push_back(new BulletTemplate("beam_blast", 100,20,false,0));
+
+
 	boss_weapons.push_back(new Weapon(bullets_list[0], "rapid_enemy", 60,
 	{ 10, 30 }));
 	boss_weapons.push_back(new Weapon(bullets_list[1], "sequence_multi_enemy", 40,
@@ -989,7 +994,7 @@ void SceneGame::makeBoss(){
 	Movement* boss_move = new Movement("bounds", boss_spawn, {90,1});
 
 	Boss* newBoss = new Boss(this,"Boss0",30,6,true,boss_spawn, new Weapon(*boss_weapons[0]),
-		boss_move, "Boss0", boss_weapons, {30,10},60);
+		boss_move, "Boss0", boss_weapons, {30, 20, 10},60);
 	addEntity(newBoss);
 
 

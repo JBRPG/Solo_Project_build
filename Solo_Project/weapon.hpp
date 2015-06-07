@@ -16,6 +16,8 @@
 // Forward declare
 class BulletTemplate;
 
+class AnimatedParticle;
+
 
 /*
   Weapon consist of a collection of bullets
@@ -60,8 +62,12 @@ private:
 	std::vector< BulletTemplate* > bullet_list;
 	bool enemydidShoot;
 
+	AnimatedParticle* shot_charging;
+	bool charge_listed = false;
+	std::string str_charge;
 
 	// functions
+
 	void rapidFire(Entity&);
 	void sequenceFire(Entity&);
 	void sequenceMultiFire(Entity&);
@@ -71,6 +77,9 @@ private:
 	void shootBullets(Entity&); // Shoot all bullets at once
 	void shootBullet(Entity&, BulletTemplate&); // shoot one bullet each in a sequence
 
+	// other
+	void chargeShot(Entity&);
+
 public:
 
 	// Constructors
@@ -78,6 +87,7 @@ public:
 	Weapon();
 	Weapon(std::vector <BulletTemplate*>, std::string, int, std::vector<int>);
 	Weapon(std::vector <BulletTemplate*>, std::string, int);
+	Weapon(std::vector <BulletTemplate*>, std::string, int, std::vector<int>, std::string);
 
 	// copy constructor
 	Weapon(const Weapon&);

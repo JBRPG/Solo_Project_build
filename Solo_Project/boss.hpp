@@ -13,6 +13,7 @@ class WeaponTemplate;
 class Weapon;
 class Movement;
 class SceneGame;
+class AnimatedParticle;
 
 /*
     The boss type enemy has unique behaviors:
@@ -46,6 +47,7 @@ class Boss : public Enemy{
 
 		int intro_timer;
 		int intro_time_set;
+
 
 
 		// functions

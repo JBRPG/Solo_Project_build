@@ -1,36 +1,41 @@
-﻿Build started 6/5/2015 9:15:38 AM.
+﻿Build started 6/7/2015 12:55:20 PM.
      1>Project "C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\Solo_Project\Solo_Project.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\/SFML-2.1/include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt boss.cpp bullet.cpp collisionGrid.cpp enemy.cpp enemyTerrain.cpp entity.cpp explosion.cpp game.cpp input.cpp main.cpp movement.cpp pickup.cpp player.cpp scene.cpp sceneGame.cpp sceneTitle.cpp soundPlayer.cpp spawner.cpp terrain.cpp textureManager.cpp weapon.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\/SFML-2.1/include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt boss.cpp bullet.cpp enemy.cpp enemyTerrain.cpp explosion.cpp main.cpp movement.cpp particle_animated.cpp pickup.cpp player.cpp sceneGame.cpp sceneTitle.cpp spawner.cpp terrain.cpp weapon.cpp
          weapon.cpp
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
                  c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\weapon.cpp(306): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\weapon.cpp(331): warning C4018: '<' : signed/unsigned mismatch
-         textureManager.cpp
+     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\weapon.cpp(346): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\weapon.cpp(371): warning C4018: '<' : signed/unsigned mismatch
+         sceneGame.cpp
+     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
+                 c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
+     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\scenegame.cpp(32): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\scenegame.cpp(324): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\scenegame.cpp(327): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\scenegame.cpp(419): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\scenegame.cpp(575): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\scenegame.cpp(930): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\scenegame.cpp(942): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\scenegame.cpp(949): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\scenegame.cpp(1035): warning C4018: '<' : signed/unsigned mismatch
+         particle_animated.cpp
+     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
+                 c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
+         boss.cpp
+     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
+                 c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
+     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\boss.cpp(38): warning C4244: 'initializing' : conversion from 'float' to 'sf::Uint8', possible loss of data
+     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\boss.cpp(97): warning C4018: '<' : signed/unsigned mismatch
+         Generating Code...
+         Compiling...
          terrain.cpp
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
                  c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
          spawner.cpp
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
                  c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
-         soundPlayer.cpp
          sceneTitle.cpp
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
-                 c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
-         sceneGame.cpp
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
-                 c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\scenegame.cpp(31): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\scenegame.cpp(323): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\scenegame.cpp(326): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\scenegame.cpp(418): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\scenegame.cpp(574): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\scenegame.cpp(929): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\scenegame.cpp(941): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\scenegame.cpp(948): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\scenegame.cpp(1030): warning C4018: '<' : signed/unsigned mismatch
-         scene.cpp
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
                  c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
          player.cpp
@@ -56,19 +61,8 @@
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
                  c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\main.cpp(17): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-         input.cpp
-         game.cpp
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
-                 c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
          explosion.cpp
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
-                 c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
-         entity.cpp
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
-                 c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.cpp(46): warning C4150: deletion of pointer to incomplete type 'Movement'; no destructor called
-                 c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(25) : see declaration of 'Movement'
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.cpp(51): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
                  c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
          enemyTerrain.cpp
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
@@ -76,20 +70,10 @@
          enemy.cpp
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
                  c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
-         collisionGrid.cpp
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
-                 c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
          bullet.cpp
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
                  c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\bullet.cpp(66): warning C4305: 'initializing' : truncation from 'double' to 'float'
-         Generating Code...
-         Compiling...
-         boss.cpp
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
-                 c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\boss.cpp(36): warning C4244: 'initializing' : conversion from 'float' to 'sf::Uint8', possible loss of data
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\boss.cpp(91): warning C4018: '<' : signed/unsigned mismatch
          Generating Code...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\Debug\Solo_Project.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\/SFML-2.1/lib" "sfml-main-d.lib" "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" "sfml-audio-d.lib" "sfml-network-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\Debug\Solo_Project.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\Debug\Solo_Project.lib" /MACHINE:X86 Debug\boss.obj
@@ -103,6 +87,7 @@
          Debug\input.obj
          Debug\main.obj
          Debug\movement.obj
+         Debug\particle_animated.obj
          Debug\pickup.obj
          Debug\player.obj
          Debug\scene.obj
@@ -118,4 +103,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:19.31
+Time Elapsed 00:00:15.18

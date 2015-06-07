@@ -4,6 +4,8 @@
 #include "movement.hpp"
 #include "sceneGame.hpp"
 #include "explosion.hpp"
+#include "particle_animated.hpp"
+#include "bullet.hpp"
 
 Boss::Boss(SceneGame* scene, std::string tex, int hp, float _speed, bool _invincible,
 	sf::Vector2f pos, Weapon* weapon, Movement* movement,
@@ -73,6 +75,10 @@ void Boss::collideWith(Entity& other){
 
 void Boss::destroyBoss(){
 
+	delete myWeapon;
+	myWeapon = nullptr;
+	delete myMovement;
+	myMovement = nullptr;
 	myScene->storeRemovedEntity(this);
 	myScene->game->increaseScore(1000);
 	myScene->playSound("enemy_destroyed");
@@ -92,7 +98,13 @@ void Boss::checkPhase(){
 		// replace current weapon with new one
 		phase++;
 		delete myWeapon;
-		myWeapon = new Weapon(*weapons[phase]);
+		if (phase == boss_phase_hp.size() - 1){
+			myWeapon = new Weapon({ new BulletTemplate("beam_blast", 100, 20, true, 0) },
+				"rapid_enemy", 120, { 2, 60 }, "beam_charge");
+		}
+		else {
+			myWeapon = new Weapon(*weapons[phase]);
+		}
 
 	}
 	if (!final_phase && phase == boss_phase_hp.size() - 1){

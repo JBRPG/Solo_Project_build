@@ -11,6 +11,8 @@ enemy1Sprite, media/images/enemy1.png
 enemy2Sprite, media/images/enemy2.png
 enemyLand, media/images/enemy_land.png
 Boss0, media/images/boss_0.png
+beam_blast, media/images/beam_blast.png
+beam_charge, media/images/Beam_charging.png
 explodeTest, media/images/explosion_test.png
 explodeAnimate, media/images/explosion_animation.png
 explodeAnimateBig, media/images/explosion_animation_big.png
