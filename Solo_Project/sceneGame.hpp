@@ -162,7 +162,7 @@ public:
 	void playSound(std::string);
 
 	void bossDefeated();
-	void summonBoss();
+	bool summonBoss();
 
 	Player* getPlayer();
 

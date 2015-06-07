@@ -1,7 +1,7 @@
-﻿Build started 6/7/2015 12:56:42 PM.
+﻿Build started 6/7/2015 2:49:04 PM.
      1>Project "C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\Solo_Project\Solo_Project.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\/SFML-2.1/include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt boss.cpp bullet.cpp collisionGrid.cpp enemy.cpp enemyTerrain.cpp entity.cpp explosion.cpp game.cpp input.cpp main.cpp movement.cpp particle_animated.cpp pickup.cpp player.cpp scene.cpp sceneGame.cpp sceneTitle.cpp soundPlayer.cpp spawner.cpp terrain.cpp textureManager.cpp weapon.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\/SFML-2.1/include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt boss.cpp bullet.cpp enemy.cpp enemyTerrain.cpp explosion.cpp main.cpp movement.cpp pickup.cpp player.cpp sceneGame.cpp sceneTitle.cpp spawner.cpp terrain.cpp weapon.cpp
          boss.cpp
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
                  c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
@@ -11,29 +11,15 @@
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
                  c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
      1>bullet.cpp(66): warning C4305: 'initializing' : truncation from 'double' to 'float'
-         collisionGrid.cpp
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
-                 c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
          enemy.cpp
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
                  c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
          enemyTerrain.cpp
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
                  c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
-         entity.cpp
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
-                 c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
-     1>entity.cpp(46): warning C4150: deletion of pointer to incomplete type 'Movement'; no destructor called
-                 c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(25) : see declaration of 'Movement'
-     1>entity.cpp(51): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
-                 c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
          explosion.cpp
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
                  c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
-         game.cpp
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
-                 c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
-         input.cpp
          main.cpp
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
                  c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
@@ -50,9 +36,6 @@
      1>movement.cpp(319): warning C4305: 'initializing' : truncation from 'double' to 'float'
      1>movement.cpp(384): warning C4018: '<' : signed/unsigned mismatch
      1>movement.cpp(388): warning C4018: '>=' : signed/unsigned mismatch
-         particle_animated.cpp
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
-                 c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
          pickup.cpp
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
                  c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
@@ -60,33 +43,106 @@
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
                  c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
      1>player.cpp(63): warning C4305: 'initializing' : truncation from 'double' to 'float'
-         scene.cpp
-     1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
-                 c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
          sceneGame.cpp
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
                  c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
      1>sceneGame.cpp(32): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>sceneGame.cpp(324): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>sceneGame.cpp(327): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>sceneGame.cpp(419): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>sceneGame.cpp(575): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(930): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>sceneGame.cpp(942): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(949): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(1035): warning C4018: '<' : signed/unsigned mismatch
+     1>sceneGame.cpp(325): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>sceneGame.cpp(328): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>sceneGame.cpp(420): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>sceneGame.cpp(547): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>sceneGame.cpp(586): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(757): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(761): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(762): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(766): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(767): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(771): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(772): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(773): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(778): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(779): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(780): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(781): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(787): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(788): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(792): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(793): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(794): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(798): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(799): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(800): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(801): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(805): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(806): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(807): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(808): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(809): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(813): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(814): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(815): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(816): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(817): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(818): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(819): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(820): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(826): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(827): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(828): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(832): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(833): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(834): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(835): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(839): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(840): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(841): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(842): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(843): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(844): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(848): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(849): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(850): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(851): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(852): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(853): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(854): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(855): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(859): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(860): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(861): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(862): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(863): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(864): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(865): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(866): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(872): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(876): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(877): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(881): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(882): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(883): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(887): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(888): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(889): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(890): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(895): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(896): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(897): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(898): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(899): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(942): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>sceneGame.cpp(954): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(961): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(1047): warning C4018: '<' : signed/unsigned mismatch
          sceneTitle.cpp
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
                  c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
-         soundPlayer.cpp
          spawner.cpp
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
                  c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
          terrain.cpp
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
                  c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
-         Compiling...
-         textureManager.cpp
          weapon.cpp
      1>c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(174): warning C4150: deletion of pointer to incomplete type 'Weapon'; no destructor called
                  c:\users\johnpeter\documents\visual studio 2013\projects\solo_project\solo_project\entity.hpp(27) : see declaration of 'Weapon'
@@ -122,4 +178,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:19.54
+Time Elapsed 00:00:16.32

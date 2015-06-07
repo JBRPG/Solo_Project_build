@@ -71,7 +71,7 @@ SceneGame::SceneGame(Game* game){
 
 	player = new Player(TextureManager::instance()->getRef("playerAnimate"),
 		sf::IntRect(0,0,60,32),
-		1, 8, false, 3);
+		1, 10, false, 3);
 	player->setPosition(sf::Vector2f(100, 200));
 	player->setWeapon(new Weapon());
 
@@ -139,10 +139,11 @@ void SceneGame::update(float dt){
 
 
 	if (!boss_summoned){
-		makeTerrain();
-		spawnTimer();
 		boss_ticks++;
-		summonBoss();
+		if (!summonBoss()){
+			makeTerrain();
+			spawnTimer();
+		}
 	}
 	makePickup();
 
@@ -540,19 +541,29 @@ Movement* SceneGame::makeMovement(sf::Vector2f vertex){
 		// but I am using them for test purposes
 
 		if (wordKey == "straight"){
-			float angle = float(rand() % 30 + 120);
+
+			// take player's position with vertex and determine chasing angle for enemy
+
+			float pi = 3.14;
+
+			float x_diff = player->getPosition().x - vertex.x;
+			float y_diff = player->getPosition().y - vertex.y;
+			
+			float rad_to_deg = 180 / pi;
+
+			float angle = atan2f(y_diff, x_diff) * rad_to_deg;
 			newMove = new Movement(wordKey, vertex, { angle });
 
 		}
 		else if (wordKey == "circle"){
-			float radius = float(rand() % 100 + 21);
+			float radius = float(20 * difficulty + 21);
 			newMove = new Movement(wordKey, vertex, { radius });
 
 
 		}
 		else if (wordKey == "sine"){
 			float amplitude = float(rand() % 50 + 1);
-			float period = float(rand() % 10 + 1) / 300;
+			float period = float( 2 * difficulty) / 300;
 			newMove = new Movement(wordKey, vertex, { amplitude, period });
 
 		}
@@ -572,7 +583,7 @@ EnemyTemplate* SceneGame::makeEnemy(Movement* movement, Weapon* weapon){
 
 	EnemyTemplate* new_Enemy = nullptr;
 
-	float enemy_speed = 10 + (2 * difficulty);
+	float enemy_speed = 8 + (2 * difficulty);
 
 	// determine the enemy graphic based on weapon type
 	if (weapon->getKeyword() == "single"){
@@ -739,152 +750,153 @@ Weapon* SceneGame::setup_bullets(std::string& word, std::vector<BulletTemplate*>
 	Weapon* new_weapon = nullptr;
 
 	int delay_reduce = 4 * difficulty;
+	int bullet_speed = 10 + (difficulty * 2);
 
 	if (word == "rapid_enemy"){
 		if (difficulty == 1){
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 0));
 			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce, { 6, 12 });
 		}
 		else if (difficulty == 2){
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 5));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -5));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 5));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, -5));
 			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce, { 6, 12 });
 		}
 		else if (difficulty == 3){
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 180));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 0));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 180));
 			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce, { 6, 12 });
 		}
 		else if (difficulty == 4){
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 30));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -30));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 0));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 30));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, -30));
 			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce, { 6, 12 });
 		}
 		else if (difficulty == 5){
 
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 90));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 180));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 270));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 0));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 90));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 180));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 270));
 			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce, { 6, 12 });
 		}
 	}
 	else if (word == "sequence_enemy"){
 		if (difficulty == 1){
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 5));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -5));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 5));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, -5));
 			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce, { 12 });
 		}
 		else if (difficulty == 2){
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 10));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -10));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 10));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 0));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, -10));
 			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce, { 12 });
 		}
 		else if (difficulty == 3){
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 15));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -15));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 15));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, -15));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 0));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 0));
 			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce, { 12 });
 		}
 		else if (difficulty == 4){
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -10));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -5));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 5));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 10));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, -10));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, -5));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 0));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 5));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 10));
 			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce, { 12 });
 		}
 		else if (difficulty == 5){
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 315));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 45));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 270));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 90));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 135));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 225));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 180));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 0));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 315));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 45));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 270));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 90));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 135));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 225));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 180));
 			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce, { 12 });
 		}
 	}
 	else if (word == "sequence_multi_enemy"){
 		if (difficulty == 1){
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -5));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 5));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 0));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, -5));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 5));
 			new_weapon = new Weapon(_bullets, word, 30 - (delay_reduce / 2), { 20, 2 });
 		}
 		else if (difficulty == 2){
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 180));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 90));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 270));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 0));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 180));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 90));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 270));
 			new_weapon = new Weapon(_bullets, word, 30 - (delay_reduce / 2), { 20, 2 });
 		}
 		else if (difficulty == 3){
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -15));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 15));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 180));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 195));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 0));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, -15));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 15));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 180));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 195));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 0));
 			new_weapon = new Weapon(_bullets, word, 30 - (delay_reduce / 2), { 20, 3 });
 		}
 		else if (difficulty == 4){
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 180));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 90));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 270));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 45));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -45));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 225));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 135));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 0));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 180));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 90));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 270));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 45));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, -45));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 225));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 135));
 			new_weapon = new Weapon(_bullets, word, 30 - (delay_reduce / 2), { 20, 2 });
 		}
 		else if (difficulty == 5){
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 5));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -5));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 175));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 185));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 85));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 95));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 265));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 275));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 5));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, -5));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 175));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 185));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 85));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 95));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 265));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 275));
 			new_weapon = new Weapon(_bullets, word, 30 - (delay_reduce / 2), { 20, 4 });
 		}
 	}
 	else if (word == "single"){
 		if (difficulty == 1){
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 0));
 			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce);
 		}
 		else if (difficulty == 2){
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 5));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -5));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 5));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, -5));
 			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce);
 		}
 		else if (difficulty == 3){
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 30));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -30));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 0));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 30));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, -30));
 			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce);
 		}
 		else if (difficulty == 4){
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 90));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 180));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 270));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 0));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 90));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 180));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 270));
 			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce);
 		}
 		else if (difficulty == 5){
 
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 0));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 45));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, 90));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -45));
-			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, 10, false, -90));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 0));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 45));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, 90));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, -45));
+			_bullets.push_back(new BulletTemplate("bulletEnemy", 1, bullet_speed, false, -90));
 			new_weapon = new Weapon(_bullets, word, 60 - delay_reduce);
 		}
 	}
@@ -1121,14 +1133,16 @@ void SceneGame::bossDefeated(){
 	boss_ticks ++;
 }
 
-void SceneGame::summonBoss(){
+bool SceneGame::summonBoss(){
 	if (boss_ticks % boss_period == boss_period - 1 && !boss_summoned){
 		boss_summoned = true;
 		gameMusic->openFromFile("media/sounds/boss_music.ogg");
 		gameMusic->setLoop(true);
 		gameMusic->play();
 		makeBoss();
+		return true;
 	}
+	return false;
 }
 
 void SceneGame::playSound(std::string sound_buff){
