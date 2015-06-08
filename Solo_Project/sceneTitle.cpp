@@ -19,7 +19,7 @@ SceneTitle::SceneTitle(Game* game)
 	titleView.setCenter(pos);
 
 	font.loadFromFile("media/PressStart2P-Regular.ttf");
-	controls = sf::Text("Controls:\n Arrows - Move   Space - Shoot\n\n\nPress Enter to begin game.", font, 16);
+	controls = sf::Text("Controls:\n Arrows - Move   Space - Shoot\n\nPress Enter to begin game.", font, 16);
 	controls.setPosition(200, 400);
 	hiscore = sf::Text("Hi Score: " + game->getHiScore(), font, 16);
 	hiscore.setPosition(500, 0);

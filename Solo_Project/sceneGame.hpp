@@ -61,6 +61,8 @@ private:
 	std::string framerate;
 	sf::Text score = sf::Text("Score: ", font, 16);
 	std::string curr_score;
+	sf::Text multiplier = sf::Text("Multi: ", font, 16);
+	std::string curr_multi;
 
 	collisionGrid gridBox;
 	std::vector<Entity*> addList; // We simply add the created entities to EntityList
@@ -85,7 +87,8 @@ private:
 
 	int scene_ticks;
 
-	int boss_period = 1200;
+	int boss_period_default = 1200;
+	int boss_period = boss_period_default;
 	// boss ticks is seperate so it can stop once the boss is summoned
 	int boss_ticks = 0;
 	bool boss_summoned = false;

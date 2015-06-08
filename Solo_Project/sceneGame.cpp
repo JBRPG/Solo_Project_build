@@ -38,6 +38,7 @@ SceneGame::SceneGame(Game* game){
 	font.loadFromFile("media/PressStart2P-Regular.ttf");
 	fpsDisplay.setPosition(50, 0);
 	score.setPosition(500, 0);
+	multiplier.setPosition(200, 0);
 
 	// load music
 	gameMusic = new sf::Music();
@@ -115,6 +116,7 @@ void SceneGame::draw(float dt){
 	center *= 0.5f;
 	this->game->window.draw(fpsDisplay);
 	this->game->window.draw(score);
+	this->game->window.draw(multiplier);
 
 }
 
@@ -132,6 +134,12 @@ void SceneGame::update(float dt){
 	curr_score = scoreDisplay.str();
 	score.setString(curr_score);
 	score.move(scrollSpeed);
+
+	std::stringstream multDisplay;
+	multDisplay << "Multi: " << game->getMultiplier();
+	curr_multi = multDisplay.str();
+	multiplier.setString(curr_multi);
+	multiplier.move(scrollSpeed);
 
 
 	checkStars();
@@ -1128,6 +1136,7 @@ void SceneGame::bossDefeated(){
 	difficulty -= 2;
 	difficulty = difficulty > 1 ? difficulty: 1;
 	difficulty_period = difficulty_period > 600 ? difficulty_period - 150 : 600;
+	boss_period = boss_period < 3600 ? boss_period += 600 : 3600;
 	gameMusic->openFromFile("media/sounds/battle_music.ogg");
 	gameMusic->setLoop(true);
 	gameMusic->play();
