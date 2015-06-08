@@ -1024,10 +1024,10 @@ void SceneGame::checkDifficulty(){
 	// of enemy waves
 
 
-	int difficultyPeriod = 600;
+	
 	int difficultyMax = 5;
 
-	if (scene_ticks % difficultyPeriod == 0 && difficulty < difficultyMax){
+	if (scene_ticks % difficulty_period == 0 && difficulty < difficultyMax){
 		difficulty++;
 		spawn_time = spawn_default - (6 * difficulty);
 	}
@@ -1127,6 +1127,7 @@ void SceneGame::bossDefeated(){
 	boss_summoned = false;
 	difficulty -= 2;
 	difficulty = difficulty > 1 ? difficulty: 1;
+	difficulty_period = difficulty_period > 600 ? difficulty_period - 150 : 600;
 	gameMusic->openFromFile("media/sounds/battle_music.ogg");
 	gameMusic->setLoop(true);
 	gameMusic->play();

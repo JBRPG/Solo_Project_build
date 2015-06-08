@@ -24,13 +24,14 @@ SceneTitle::SceneTitle(Game* game)
 	hiscore = sf::Text("Hi Score: " + game->getHiScore(), font, 16);
 	hiscore.setPosition(500, 0);
 
-	title = sf::Sprite(TextureManager::instance()->getRef("title"));
-	title.setPosition(200, 100);
+	game_title = new AnimatedParticle(TextureManager::instance()->getRef("title_animated"),
+		sf::IntRect(0,0,480,300),180);
+	game_title->setPosition(400, 200);
 }
 
 void SceneTitle::draw(const float dt){
 	game->window.setView(titleView);
-	game->window.draw(title);
+	game->window.draw(*game_title);
 	game->window.draw(controls);
 	game->window.draw(hiscore);
 
@@ -43,6 +44,7 @@ void SceneTitle::update(const float dt){
 	std::string hiscoreStr = hiscoreDisplay.str();
 	hiscore.setString(hiscoreStr);
 	play_playerDefeat();
+	game_title->update(dt);
 
 
 }

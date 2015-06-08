@@ -15,8 +15,6 @@ private:
 
 public:
 
-
-
 	AnimatedParticle(const sf::Texture&, const sf::IntRect&, int);
 
 	void update(float dt);

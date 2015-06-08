@@ -25,4 +25,5 @@ pickup3Front, media/images/pickup_3_front.png
 pickupHorizontal, media/images/pickup_h_shot.png
 pickupVertical, media/images/pickup_v_shot.png
 title, media/images/Randamius_title.png
+title_animated, media/images/Randamius_title_animated.png
 star, media/images/star.png

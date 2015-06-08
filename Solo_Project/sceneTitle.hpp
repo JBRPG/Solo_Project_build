@@ -4,6 +4,7 @@
 #include <SFML\Audio.hpp>
 
 #include "scene.hpp"
+#include "particle_animated.hpp"
 
 // forward declaration
 class Game;
@@ -17,7 +18,7 @@ private:
 	sf::Text controls;
 	sf::Text hiscore;
 
-	sf::Sprite title;
+	AnimatedParticle* game_title;
 
 	sf::View titleView;
 

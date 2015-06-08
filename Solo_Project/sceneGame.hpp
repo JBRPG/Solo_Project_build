@@ -76,10 +76,12 @@ private:
 	int weapon_repeat = 1;
 	int waypoint_repeat = 1;
 	
-	int spawn_default = 120;
+	int spawn_default = 180;
 	int spawn_time = spawn_default; // For now we have it affecting all spawners
 	
 	int difficulty = 1;
+	int difficulty_period_default = 900;
+	int difficulty_period = difficulty_period_default;
 
 	int scene_ticks;
 
