@@ -81,9 +81,13 @@ private:
 	int spawn_default = 180;
 	int spawn_time = spawn_default; // For now we have it affecting all spawners
 	
+
+	// difficulty-related
 	int difficulty = 1;
 	int difficulty_period_default = 900;
 	int difficulty_period = difficulty_period_default;
+	int spawn_difficulty = difficulty; // used to fluctuate difficulty of enemies when spawned
+	bool spawn_diff_Fn_Tp = false;
 
 	int scene_ticks;
 
@@ -121,6 +125,8 @@ private:
 	// Procedural Content Generation-related functions
 
 	void checkDifficulty();
+	void switchSpawnDifficulty();
+
 	Movement* makeMovement(sf::Vector2f); // make movements
 	EnemyTemplate* makeEnemy(Movement*, Weapon*); // make generic type of enemies
 	Weapon* makeWeapon(); // make weapons

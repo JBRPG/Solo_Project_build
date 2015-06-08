@@ -1,4 +1,4 @@
-﻿Build started 6/8/2015 8:28:10 AM.
+﻿Build started 6/8/2015 1:20:49 PM.
      1>Project "C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\Solo_Project\Solo_Project.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\/SFML-2.1/include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt sceneGame.cpp
@@ -9,90 +9,90 @@
      1>sceneGame.cpp(333): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
      1>sceneGame.cpp(336): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
      1>sceneGame.cpp(428): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>sceneGame.cpp(555): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>sceneGame.cpp(594): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(765): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(769): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(770): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(774): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(775): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(779): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(780): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(781): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(572): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>sceneGame.cpp(611): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(782): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(786): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(787): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(788): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(789): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(795): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(791): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(792): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(796): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(800): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(801): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(802): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(797): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(798): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(803): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(804): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(805): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(806): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(807): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(808): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(809): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(812): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(813): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(814): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(815): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(816): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(817): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(821): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(822): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(818): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(819): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(823): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(824): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(825): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(826): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(827): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(828): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(830): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(831): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(832): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(833): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(834): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(835): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(836): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(838): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(839): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(840): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(841): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(842): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(843): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(847): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(848): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(849): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(850): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(844): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(845): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(851): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(852): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(856): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(853): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(857): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(858): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(859): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(860): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(861): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(862): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(863): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(864): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(865): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(866): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(867): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(868): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(869): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(870): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(871): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(872): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(873): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(874): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(875): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(876): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(877): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(878): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(879): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(880): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(884): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(885): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(886): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(887): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(888): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(889): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(890): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(891): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(895): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(896): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(897): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(898): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(903): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(904): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(905): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(901): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(902): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(906): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>sceneGame.cpp(907): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(950): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>sceneGame.cpp(962): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(969): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>sceneGame.cpp(1055): warning C4018: '<' : signed/unsigned mismatch
+     1>sceneGame.cpp(908): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(912): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(913): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(914): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(915): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(920): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(921): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(922): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(923): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(924): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(966): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>sceneGame.cpp(978): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(985): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>sceneGame.cpp(1073): warning C4018: '<' : signed/unsigned mismatch
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\Release\Solo_Project.exe" /NOLOGO /LIBPATH:"C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\/SFML-2.1/lib" "sfml-main.lib" "sfml-graphics.lib" "sfml-window.lib" "sfml-system.lib" "sfml-audio.lib" "sfml-network.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\Release\Solo_Project.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\JohnPeter\Documents\Visual Studio 2013\Projects\Solo_Project\Release\Solo_Project.lib" /MACHINE:X86 /SAFESEH Release\boss.obj
          Release\bullet.obj
@@ -123,4 +123,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:05.19
+Time Elapsed 00:00:05.31
