@@ -21,12 +21,8 @@ public:
 	int getTicks() { return ticks; };
 
 
-	// we will keep the old options of time
-	void setSpawnTime(float time){ spawnTime = time; };
-	float getSpawnTime() { return spawnTime; };
-
-	// we will animate the explosion by changing frames
 	void changeFrame();
+	void resetAnimation();
 
 	// We will leave the inherited functions empty for simplicity
 	void collideWith(Entity&) {};

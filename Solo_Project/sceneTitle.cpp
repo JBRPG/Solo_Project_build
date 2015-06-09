@@ -90,6 +90,7 @@ void SceneTitle::handleInput(){
 void SceneTitle::play_playerDefeat(){
 	if (game->getAtStartScreen()) return;
 	if (game->getGameOver()){
+		game_title->resetAnimation();
 		game->setAtStartScreen(true);
 	}
 }
